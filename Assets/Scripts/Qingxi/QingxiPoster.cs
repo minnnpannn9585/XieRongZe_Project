@@ -72,6 +72,12 @@ namespace Qingxi
             camTransform.position = new Vector3(5.13f + sway, 0f, -10f);
         }
 
+        void OnDestroy()
+        {
+            if (square != null) { Destroy(square.texture); Destroy(square); }
+            if (disc != null) { Destroy(disc.texture); Destroy(disc); }
+        }
+
         void BuildCamera()
         {
             var go = new GameObject("PosterCamera");

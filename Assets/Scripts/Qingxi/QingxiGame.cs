@@ -10,7 +10,7 @@ namespace Qingxi
     /// <summary>
     /// Runtime UGUI prototype. Press Play in any scene; the interface is built from color blocks and text.
     /// </summary>
-    public sealed class QingxiGame : MonoBehaviour
+    public sealed partial class QingxiGame : MonoBehaviour
     {
         enum Phase
         {
@@ -170,6 +170,7 @@ namespace Qingxi
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920f, 1080f);
             scaler.matchWidthOrHeight = 0.5f;
+            scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
             canvasGo.AddComponent<GraphicRaycaster>();
 
             menuPanel = BuildMenu(canvasGo.transform);
@@ -177,6 +178,7 @@ namespace Qingxi
             investigatePanel = BuildInvestigation(canvasGo.transform);
             deducePanel = BuildDeduction(canvasGo.transform);
             resultPanel = BuildResult(canvasGo.transform);
+            BuildJournalOverlay(canvasGo.transform);
             var posterGo = new GameObject("MenuPoster");
             posterGo.transform.SetParent(transform, false);
             posterGo.SetActive(false);
@@ -202,7 +204,7 @@ namespace Qingxi
                 new Vector2(0.08f, 0.60f), new Vector2(0.92f, 0.72f));
             CreateText(sheet.transform, "SheetTitle", "选择关卡", 30, Paper, TextAnchor.MiddleLeft,
                 new Vector2(0.08f, 0.50f), new Vector2(0.92f, 0.60f), FontStyle.Bold);
-            CreateText(sheet.transform, "SheetSub", "通关后解锁下一关。", 18, Muted, TextAnchor.UpperLeft,
+            CreateText(sheet.transform, "SheetSub", "通关解锁下一关 · 调查自动保存，可随时续玩", 18, Muted, TextAnchor.UpperLeft,
                 new Vector2(0.08f, 0.43f), new Vector2(0.92f, 0.50f));
 
             levelButtons = new LevelButton[QingxiCases.Count];
@@ -246,7 +248,7 @@ namespace Qingxi
             introBody = CreateText(card.transform, "Body", "", 28, Paper, TextAnchor.UpperLeft,
                 new Vector2(0.08f, 0.58f), new Vector2(0.92f, 0.90f));
             CreateText(card.transform, "Rule",
-                "进入小镇后用 WASD 走动，靠近场所按 E。表面观察免费；深入核查每次消耗 1 点行动点。",
+                "WASD / 方向键移动，靠近场所按 E。\n表面观察免费；深入核查消耗 1 点行动点。\n按 N 展开笔记，Esc 返回。调查自动保存。",
                 22, Muted, TextAnchor.UpperLeft,
                 new Vector2(0.08f, 0.28f), new Vector2(0.92f, 0.56f));
 
@@ -272,7 +274,7 @@ namespace Qingxi
                 new Vector2(0.02f, 0.05f), new Vector2(0.46f, 0.48f));
             pointsText = CreateText(hud.transform, "Points", "行动点    3 / 3", 22, Gold, TextAnchor.MiddleLeft,
                 new Vector2(0.30f, 0f), new Vector2(0.52f, 1f));
-            Button abandon = CreateButton(hud.transform, "BtnAbandon", "放弃关卡", Card, Paper, 18,
+            Button abandon = CreateButton(hud.transform, "BtnAbandon", "保存并返回", Card, Paper, 18,
                 new Vector2(0.62f, 0.16f), new Vector2(0.78f, 0.84f));
             abandon.onClick.AddListener(AbandonToMenu);
             Button submit = CreateButton(hud.transform, "BtnSubmitConclusion", "提交结论", Gold, Ink, 18,
@@ -289,6 +291,9 @@ namespace Qingxi
             notesHeader = CreateText(journal.transform, "NotesHeader", "线索笔记", 18, Paper, TextAnchor.MiddleLeft,
                 new Vector2(0.06f, 0.78f), new Vector2(0.94f, 0.98f));
             CreateNotebook(journal.transform, new Vector2(0.05f, 0.06f), new Vector2(0.95f, 0.76f));
+            Button expand = CreateButton(journal.transform, "BtnExpandNotes", "展开 N", Card, Paper, 16,
+                new Vector2(0.65f, 0.80f), new Vector2(0.95f, 0.96f));
+            expand.onClick.AddListener(ToggleJournal);
 
             var overlay = CreateRect(root.transform, "Interact", Vector2.zero, Vector2.one);
             interactDim = overlay.gameObject;
@@ -331,6 +336,7 @@ namespace Qingxi
             promptBg.transform.SetAsLastSibling();
             journal.transform.SetAsLastSibling();
             hud.transform.SetAsLastSibling();
+            overlay.SetAsLastSibling();
             interactDim.SetActive(false);
             return root;
         }
@@ -376,7 +382,7 @@ namespace Qingxi
             CreateText(card.transform, "Title", "锁定主要污染源", 40, Paper, TextAnchor.MiddleLeft,
                 new Vector2(0.08f, 0.84f), new Vector2(0.92f, 0.96f), FontStyle.Bold);
             CreateText(card.transform, "Sub",
-                "根据已有线索选择主因。确认后立即公布答案，也可以返回调查或放弃本关。",
+                "先查看调查笔记，再选择主因。确认后公布答案；也可以返回继续调查。",
                 22, Muted, TextAnchor.MiddleLeft,
                 new Vector2(0.08f, 0.74f), new Vector2(0.92f, 0.84f));
 
@@ -398,9 +404,9 @@ namespace Qingxi
                 };
             }
 
-            Button giveUp = CreateButton(card.transform, "BtnDeduceMenu", "放弃关卡", Card, Paper, 22,
+            Button giveUp = CreateButton(card.transform, "BtnDeduceNotes", "查看笔记 N", Card, Paper, 22,
                 new Vector2(0.08f, 0.05f), new Vector2(0.34f, 0.15f));
-            giveUp.onClick.AddListener(AbandonToMenu);
+            giveUp.onClick.AddListener(ToggleJournal);
 
             Button back = CreateButton(card.transform, "BtnBackToMap", "返回调查", Card, Paper, 22,
                 new Vector2(0.37f, 0.05f), new Vector2(0.63f, 0.15f));
@@ -463,6 +469,8 @@ namespace Qingxi
 
         void OpenInteract(int id)
         {
+            if (activePhase != Phase.Investigate || phaseRoutine != null || journalOverlay.activeSelf)
+                return;
             selectedArea = id;
             interactDim.SetActive(true);
             if (explorer != null)
@@ -476,7 +484,8 @@ namespace Qingxi
             if (interactDim != null)
                 interactDim.SetActive(false);
             if (explorer != null)
-                explorer.MovementLocked = false;
+                explorer.MovementLocked = activePhase != Phase.Investigate || phaseRoutine != null ||
+                    (journalOverlay != null && journalOverlay.activeSelf);
         }
 
         void OnSurface()
@@ -485,6 +494,7 @@ namespace Qingxi
                 return;
             if (!session.TrySurface(selectedArea.Value, out _))
                 return;
+            InvestigationSave.Store(caseIndex, session);
             RefreshInvestigation();
             if (explorer != null)
                 explorer.RefreshMarks();
@@ -497,6 +507,7 @@ namespace Qingxi
                 return;
             if (!session.TryDeep(selectedArea.Value, out _))
                 return;
+            InvestigationSave.Store(caseIndex, session);
             RefreshInvestigation();
             if (explorer != null)
                 explorer.RefreshMarks();
@@ -521,12 +532,13 @@ namespace Qingxi
 
         void ConfirmSuspect()
         {
-            if (!selectedSuspect.HasValue)
+            if (!selectedSuspect.HasValue || activePhase != Phase.Deduce || phaseRoutine != null)
                 return;
 
+            InvestigationSave.Clear(caseIndex);
             resultCorrect = session.IsCorrect(selectedSuspect.Value);
             resultStrip.color = resultCorrect ? Ok : Bad;
-            resultTitle.text = resultCorrect ? "通关" : "失败";
+            resultTitle.text = resultCorrect ? "调查完成" : "再核对一次证据";
             resultTitle.color = resultCorrect ? Ok : Bad;
             resultComment.text = resultCorrect ? session.Case.SuccessText : session.Case.FailText;
             resultChoice.text = "你的结论：" + session.Case.Suspects[selectedSuspect.Value].Label;
@@ -570,11 +582,14 @@ namespace Qingxi
 
         void EnterCase(int index)
         {
-            if (index > unlockedThrough)
+            if (index < 0 || index >= QingxiCases.Count || index > unlockedThrough)
                 return;
 
+            // Relinquish the poster camera before the town takes ownership.
+            poster.gameObject.SetActive(false);
             caseIndex = index;
-            session.Bind(QingxiCases.Get(caseIndex));
+            bool resumed = InvestigationSave.TryLoad(caseIndex, out InvestigationSession saved);
+            session = resumed ? saved : new InvestigationSession(QingxiCases.Get(caseIndex));
             selectedArea = null;
             selectedSuspect = null;
             resultCorrect = false;
@@ -583,7 +598,10 @@ namespace Qingxi
             DestroyTown();
             ApplyCaseChrome();
             ShowPreview();
-            Show(Phase.Intro);
+            if (resumed && session.Clues.Count > 0)
+                BeginInvestigation();
+            else
+                Show(Phase.Intro);
         }
 
         void ShowPreview()
@@ -609,6 +627,7 @@ namespace Qingxi
             {
                 DestroyTown();
                 var go = new GameObject("TownExplorer");
+                go.transform.SetParent(transform, false);
                 go.SetActive(false);
                 explorer = go.AddComponent<TownExplorer>();
                 explorer.Build(session, uiFont);
@@ -633,13 +652,17 @@ namespace Qingxi
         {
             CloseInteract();
             if (explorer != null)
+            {
+                explorer.gameObject.SetActive(false);
                 Destroy(explorer.gameObject);
+            }
             explorer = null;
             explorerCase = -1;
         }
 
         void Update()
         {
+            HandleShortcuts();
             if (promptText == null || explorer == null || !explorer.isActiveAndEnabled)
                 return;
             promptText.text = explorer.Prompt;
@@ -694,6 +717,11 @@ namespace Qingxi
                     level.Label.text = "第 " + (i + 1) + " 关      " + current.ChapterName;
                     level.Label.color = Paper;
                 }
+                if (!locked && InvestigationSave.TryLoad(i, out InvestigationSession saved) && saved.Clues.Count > 0)
+                {
+                    level.Label.text = "第 " + (i + 1) + " 关  ·  " + current.ChapterName + "    继续调查";
+                    level.Image.color = new Color(0.80f, 0.88f, 0.81f);
+                }
             }
         }
 
@@ -724,6 +752,7 @@ namespace Qingxi
                 Punch(pointsText.rectTransform);
             shownPoints = session.Points;
             pointsText.text = "行动点    " + session.Points + " / " + QingxiCases.StartingPoints;
+            pointsText.color = session.Points == 0 ? DeepColor : Gold;
         }
 
         void RefreshDetail()
@@ -767,6 +796,7 @@ namespace Qingxi
 
         void RefreshNotebook()
         {
+            bool changed = shownClues != session.Clues.Count;
             notesHeader.text = session.Clues.Count == 0
                 ? "线索笔记"
                 : "线索笔记    " + session.Clues.Count;
@@ -806,7 +836,8 @@ namespace Qingxi
             }
 
             LayoutRebuilder.ForceRebuildLayoutImmediate(notebookText.rectTransform);
-            notebookScroll.verticalNormalizedPosition = 0f;
+            if (changed)
+                notebookScroll.verticalNormalizedPosition = 0f;
             if (shownClues >= 0 && session.Clues.Count != shownClues)
                 PlayFade(notebookGroup);
             shownClues = session.Clues.Count;
@@ -827,6 +858,15 @@ namespace Qingxi
 
         void Show(Phase phase)
         {
+            CloseJournal();
+            activePhase = phase;
+            if (EventSystem.current != null)
+                EventSystem.current.SetSelectedGameObject(null);
+            if (explorer != null)
+            {
+                explorer.MovementLocked = true;
+                explorer.InputEnabled = false;
+            }
             if (poster != null)
                 poster.gameObject.SetActive(phase == Phase.Menu);
             if (phaseRoutine != null)
@@ -849,6 +889,7 @@ namespace Qingxi
                 CanvasGroup group = panels[i].GetComponent<CanvasGroup>();
                 group.alpha = 0f;
                 group.blocksRaycasts = false;
+                group.interactable = false;
                 panels[i].SetActive(false);
             }
         }
@@ -890,7 +931,10 @@ namespace Qingxi
             };
             float[] start = new float[groups.Length];
             for (int i = 0; i < groups.Length; i++)
+            {
                 start[i] = groups[i].alpha;
+                groups[i].interactable = false;
+            }
 
             const float duration = 0.34f;
             float t = 0f;
@@ -923,6 +967,12 @@ namespace Qingxi
 
             to.alpha = 1f;
             to.blocksRaycasts = true;
+            to.interactable = true;
+            if (explorer != null)
+            {
+                explorer.MovementLocked = next != Phase.Investigate || selectedArea.HasValue;
+                explorer.InputEnabled = next == Phase.Investigate;
+            }
             toRect.anchoredPosition = Vector2.zero;
             if (poster != null && next != Phase.Menu)
                 poster.gameObject.SetActive(false);
@@ -982,7 +1032,9 @@ namespace Qingxi
 
         static Font LoadUiFont()
         {
-            string[] names = { "Microsoft YaHei", "SimHei", "SimSun" };
+            Font bundled = Resources.Load<Font>("Fonts/QingxiUI");
+            if (bundled != null) return bundled;
+            string[] names = { "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", "SimHei", "SimSun" };
             for (int i = 0; i < names.Length; i++)
             {
                 Font font = Font.CreateDynamicFontFromOSFont(names[i], 32);
@@ -1189,6 +1241,7 @@ namespace Qingxi
 
         void Update()
         {
+            ApplyTarget();
             current = Mathf.SmoothDamp(current, target, ref velocity, 0.07f, Mathf.Infinity, Time.unscaledDeltaTime);
             rect.localScale = new Vector3(current, current, 1f);
         }
@@ -1197,6 +1250,14 @@ namespace Qingxi
         {
             rest = scale;
             ApplyTarget();
+        }
+
+        void OnDisable()
+        {
+            over = down = false;
+            velocity = 0f;
+            target = current = rest;
+            if (rect != null) rect.localScale = Vector3.one * rest;
         }
 
         public void OnPointerEnter(PointerEventData eventData)

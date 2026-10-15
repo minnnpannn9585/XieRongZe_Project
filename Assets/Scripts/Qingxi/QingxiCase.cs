@@ -252,8 +252,8 @@ namespace Qingxi
 
     public sealed class AreaProgress
     {
-        public bool SurfaceDone;
-        public bool DeepDone;
+        public bool SurfaceDone { get; internal set; }
+        public bool DeepDone { get; internal set; }
     }
 
     public sealed class InvestigationSession
@@ -292,6 +292,11 @@ namespace Qingxi
         public bool TrySurface(int area, out string error)
         {
             error = null;
+            if (area < 0 || area >= progress.Length)
+            {
+                error = "无效的调查区域";
+                return false;
+            }
             AreaProgress state = progress[area];
             if (state.SurfaceDone)
             {
@@ -307,6 +312,11 @@ namespace Qingxi
         public bool TryDeep(int area, out string error)
         {
             error = null;
+            if (area < 0 || area >= progress.Length)
+            {
+                error = "无效的调查区域";
+                return false;
+            }
             AreaProgress state = progress[area];
             if (state.DeepDone)
             {
@@ -329,7 +339,7 @@ namespace Qingxi
 
         public bool IsCorrect(int suspect)
         {
-            return suspect == current.TruthIndex;
+            return suspect >= 0 && suspect < current.Suspects.Length && suspect == current.TruthIndex;
         }
     }
 }

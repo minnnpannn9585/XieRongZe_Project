@@ -92,7 +92,17 @@ namespace Qingxi
         const float RoamSize = 5.5f;
         const float PresentSize = 8.6f;
 
-        public bool MovementLocked { get; set; }
+        bool movementLocked;
+        public bool InputEnabled { get; set; } = true;
+        public bool MovementLocked
+        {
+            get => movementLocked;
+            set
+            {
+                movementLocked = value;
+                if (value && body != null) body.linearVelocity = Vector2.zero;
+            }
+        }
         public Action<int> OnOpen;
         public Action OnClose;
 
@@ -103,7 +113,7 @@ namespace Qingxi
                 if (MovementLocked)
                     return "按 E 离开";
                 if (nearby < 0)
-                    return "WASD 移动    ·    靠近场所后按 E";
+                    return "WASD / 方向键移动  ·  E 调查  ·  N 笔记";
                 string name = session.Case.Areas[nearby].Name;
                 return "按 E 调查  " + name;
             }
@@ -151,6 +161,19 @@ namespace Qingxi
             mutedCameras.Clear();
         }
 
+        void OnDestroy()
+        {
+            ReleaseSprite(square);
+            ReleaseSprite(disc);
+        }
+
+        static void ReleaseSprite(Sprite sprite)
+        {
+            if (sprite == null) return;
+            Destroy(sprite.texture);
+            Destroy(sprite);
+        }
+
         public void PresentLandmark()
         {
             presenting = true;
@@ -177,7 +200,7 @@ namespace Qingxi
 
         void Update()
         {
-            if (player == null || presenting)
+            if (player == null || presenting || !InputEnabled)
                 return;
 
             nearby = FindNearby();
@@ -198,7 +221,7 @@ namespace Qingxi
             if (body == null)
                 return;
 
-            Vector2 move = MovementLocked ? Vector2.zero : ReadMove();
+            Vector2 move = MovementLocked || !InputEnabled || !Application.isFocused ? Vector2.zero : ReadMove();
             body.linearVelocity = move * MoveSpeed;
             if (playerVisual == null)
                 return;
