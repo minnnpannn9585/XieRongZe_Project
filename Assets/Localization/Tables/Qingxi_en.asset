@@ -1,0 +1,883 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Qingxi_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 3971009a6bbacf84992ff4308afb07ff, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 1072685056
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1118822400
+    m_Localized: "ENVIRONMENT OFFICER \xB7 FIELD NOTES"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016704
+    m_Localized: Qingxi Field Notes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016705
+    m_Localized: Three action points. Observe first, then decide where to dig deeper.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016706
+    m_Localized: Choose a case
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016707
+    m_Localized: Solve each case to unlock the next. Progress saves automatically.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016708
+    m_Localized: YOUR ASSIGNMENT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016709
+    m_Localized: 'Move with WASD / arrow keys. Press E near a location.
+
+      Observations
+      are free; each in-depth check costs 1 action point.
+
+      N opens your notes.
+      Esc goes back. Progress saves automatically.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016710
+    m_Localized: Main menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016711
+    m_Localized: Begin investigation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016712
+    m_Localized: Action points    3 / 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016713
+    m_Localized: Save & return
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016714
+    m_Localized: Make a conclusion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016715
+    m_Localized: "WASD to move \xB7 E near a location"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016716
+    m_Localized: Evidence notes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016717
+    m_Localized: Open N
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016718
+    m_Localized: Leave
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016719
+    m_Localized: "Observe \xB7 Free"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016720
+    m_Localized: "Investigate \xB7 1 point"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016721
+    m_Localized: Observation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016722
+    m_Localized: In-depth check
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016723
+    m_Localized: Identify the main pollution source
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016724
+    m_Localized: Review your notes and choose the main cause. Confirm to reveal the
+      answer, or return to gather more evidence.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016725
+    m_Localized: Notes N
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016726
+    m_Localized: Keep investigating
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016727
+    m_Localized: Confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016728
+    m_Localized: Case solved
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016729
+    m_Localized: Evidence explained
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016730
+    m_Localized: Try again
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016731
+    m_Localized: Investigation notes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016732
+    m_Localized: Close Esc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016733
+    m_Localized: "Scroll / drag to read \xB7 Key evidence is more reliable than appearances"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016734
+    m_Localized: Investigation complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016735
+    m_Localized: Check the evidence again
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016736
+    m_Localized: 'Your conclusion: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016737
+    m_Localized: 'Correct answer: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016738
+    m_Localized: Next case
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016739
+    m_Localized: Replay this case
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016740
+    m_Localized: "Case {0} \xB7 {1} \xB7 Locked"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016741
+    m_Localized: "Case {0} \xB7 {1} \xB7 Solved"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016742
+    m_Localized: "Case {0} \xB7 {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016743
+    m_Localized: "Case {0} \xB7 {1} \xB7 Continue"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016744
+    m_Localized: Action points    {0} / {1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016745
+    m_Localized: Observed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016746
+    m_Localized: Not yet observed. First impressions can be vague or misleading.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016747
+    m_Localized: Investigation complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016748
+    m_Localized: "Not enough points \xB7 Need {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016749
+    m_Localized: "Investigate \xB7 {0} point"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016750
+    m_Localized: Not yet checked. Key evidence can directly support or rule out a
+      pollution source.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016751
+    m_Localized: Evidence notes    {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016752
+    m_Localized: 'No evidence yet.
+
+      Start with free observations, then spend
+      your action points on locations worth investigating further.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016753
+    m_Localized: '[Key]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016754
+    m_Localized: '[Observation]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016755
+    m_Localized: ': '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016756
+    m_Localized: "{0} \xB7 Clues: {1} / Key evidence: {2} \xB7 Points left: {3}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016757
+    m_Localized: Investigated
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016758
+    m_Localized: Observed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016759
+    m_Localized: Unvisited
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016760
+    m_Localized: E to leave
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016761
+    m_Localized: "WASD / arrows to move \xB7 E investigate \xB7 N notes"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016762
+    m_Localized: 'E to investigate: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016763
+    m_Localized: Invalid investigation area
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016764
+    m_Localized: You have already observed this location
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016765
+    m_Localized: You have already investigated this location
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016766
+    m_Localized: Not enough action points
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016767
+    m_Localized: Murky River
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016768
+    m_Localized: Qingxi Town
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016769
+    m_Localized: "Qingxi Town \xB7 The river flows south"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016770
+    m_Localized: The river in Qingxi Town is becoming polluted. As the environmental
+      officer, use your 3 action points to identify the main source.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016771
+    m_Localized: You identified the main pollution source. Cleanup is progressing
+      well, and Qingxi's river is gradually running clear again.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016772
+    m_Localized: The main source was misidentified, so cleanup has had little effect.
+      Take a closer look at evidence of wastewater discharges upstream.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016773
+    m_Localized: Tests show mostly organic wastewater, with very little plastic.
+      Fish deaths trace back to toxins from upstream. The livestock farm has records
+      of illegal night discharges, and its treatment system has been idle for months.
+      The recycling yard's liner is intact, while residents trace the nighttime odor
+      to the farm. The main source is illegal wastewater discharge from the livestock
+      farm.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016774
+    m_Localized: River sampling site
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016775
+    m_Localized: River
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016776
+    m_Localized: The river is murky, with plastic fragments and unidentified oily
+      patches on the surface.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016777
+    m_Localized: Water tests show that organic wastewater makes up most of the pollution;
+      plastic accounts for very little.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016778
+    m_Localized: Livestock farm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016779
+    m_Localized: Livestock Farm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016780
+    m_Localized: The livestock farm is large, and its discharge outlet leads directly
+      to the river downstream.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016781
+    m_Localized: Records reveal illegal wastewater discharges at night. The treatment
+      system has been out of operation for months.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016782
+    m_Localized: Fish pond
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016783
+    m_Localized: Fish Pond
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016784
+    m_Localized: Some fish have died, and the pond appears overcrowded.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016785
+    m_Localized: Tests on the fish show signs of poisoning. The toxins came from
+      upstream water.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016786
+    m_Localized: Recycling yard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016787
+    m_Localized: Recycling Yard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016788
+    m_Localized: Piles of discarded plastic sit beside the river, suggesting a risk
+      of leakage.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016789
+    m_Localized: The protective liner is intact. There is no sign of a significant
+      recent plastic leak.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016790
+    m_Localized: Residential Area
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016791
+    m_Localized: Residents complain that the river has smelled strongly in recent
+      days.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016792
+    m_Localized: Several residents confirm that the strongest odor comes from the
+      livestock farm late at night.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016793
+    m_Localized: Illegal discharge from the livestock farm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016794
+    m_Localized: Plastic leakage from the recycling yard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016795
+    m_Localized: Overcrowding in the fish pond
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016796
+    m_Localized: Reservoir Algal Bloom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016797
+    m_Localized: Qingxi Reservoir
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016798
+    m_Localized: "Qingxi Reservoir \xB7 A tributary enters from the west"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016799
+    m_Localized: Qingxi Reservoir supplies the town's drinking water, but its surface
+      has recently turned green. As the environmental officer, use your 3 action
+      points to identify the main cause of the algal bloom.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016800
+    m_Localized: You identified the main pollution source. The overflow has been
+      stopped, and the reservoir's algal bloom is beginning to recede.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016801
+    m_Localized: The main source was misidentified, and the bloom is still spreading.
+      Investigate the heavily polluted water entering from the western tributary.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016802
+    m_Localized: Tests identify a cyanobacterial bloom fueled by nitrogen and phosphorus,
+      with very little oil. Fish-cage feeding is low this year, and the restaurant
+      drains into the municipal sewer. Residents first noticed the odor when the
+      western tributary rose. Rain caused the fertilizer plant's emergency holding
+      pond to overflow into that tributary. The main source is the fertilizer plant's
+      overflow after rain.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016803
+    m_Localized: Reservoir surface
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016804
+    m_Localized: Reservoir
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016805
+    m_Localized: Large green films float on the water, with a few oily streaks mixed
+      in.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016806
+    m_Localized: Tests identify a cyanobacterial bloom. The main nutrients are nitrogen
+      and phosphorus; oil levels are extremely low.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016807
+    m_Localized: Cage fish farm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016808
+    m_Localized: Fish Cages
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016809
+    m_Localized: Rows of fish cages occupy the bay, and feed bags are piled along
+      the shore.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016810
+    m_Localized: Feeding is far below previous years. The cages contribute little
+      nitrogen or phosphorus and are not the main cause of this bloom.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016811
+    m_Localized: Fertilizer Plant
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016812
+    m_Localized: The fertilizer plant beside the western tributary gives off a sharp
+      odor. Wet streaks mark the ground outside its wall.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016813
+    m_Localized: After the rain, the emergency holding pond overflowed, sending wastewater
+      rich in nitrogen and phosphorus into the western tributary.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016814
+    m_Localized: Lakeside restaurant
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016815
+    m_Localized: Restaurant
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016816
+    m_Localized: The restaurant's drainage pipe points toward the bay, and there
+      is a strong smell of dishwater.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016817
+    m_Localized: The drain is connected to the municipal sewer. Spot checks this
+      past week found no signs of kitchen wastewater in the bay.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016818
+    m_Localized: Water intake neighborhood
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016819
+    m_Localized: Water Intake
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016820
+    m_Localized: Residents say their tap water is greenish and still smells earthy
+      after boiling.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016821
+    m_Localized: Several households say the odor began when the western tributary
+      rose, matching the inflow from the fertilizer plant's direction.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016822
+    m_Localized: Fish-cage farming in the bay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016823
+    m_Localized: Overflow from the fertilizer plant after rain
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016824
+    m_Localized: Direct discharge from the lakeside restaurant
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016825
+    m_Localized: Rust-Red Mountain Creek
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016826
+    m_Localized: Qingxi Mountain Creek
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016827
+    m_Localized: "Qingxi Mountain Creek \xB7 Check the eastern hillside inflow"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016828
+    m_Localized: Qingxi's upper mountain creek has suddenly turned rusty yellow,
+      making the downstream irrigation water unusable. As the environmental officer,
+      use your 3 action points to identify the main cause.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016829
+    m_Localized: You identified the main pollution source. The acidic drainage has
+      been contained, and the creek and irrigation channels are gradually clearing.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016830
+    m_Localized: The main source was misidentified, and rusty water is still flowing
+      downstream. Investigate the rust-colored inflow from the eastern hillside.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016831
+    m_Localized: Tests show excessive iron, manganese and acidity, pointing to acid
+      mine drainage rather than foam. The guesthouse discharges little water, and
+      the quarry's settling pond releases clear water. Farmers saw rusty water rush
+      down from the eastern mine. Its sealing wall collapsed after rain, releasing
+      trapped water into the creek. The main source is acidic drainage from the abandoned
+      mine.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016832
+    m_Localized: Mountain creek channel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016833
+    m_Localized: Mountain Creek
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016834
+    m_Localized: The creek is rusty yellow, the rocks are stained red, and white
+      foam floats on the surface.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016835
+    m_Localized: Iron, manganese and acidity are far above safe levels, indicating
+      acid mine drainage. Foam cannot explain the entire creek's rusty color.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016836
+    m_Localized: Creekside guesthouse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016837
+    m_Localized: Guesthouse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016838
+    m_Localized: A newly opened guesthouse discharges foamy wash water into the creek.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016839
+    m_Localized: The discharge is small and mainly contains surfactants. It cannot
+      explain the creek's acidity, iron or manganese levels.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016840
+    m_Localized: Stone Quarry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016841
+    m_Localized: The hillside quarry produces heavy dust, and a muddy ditch leads
+      straight to the creek.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016842
+    m_Localized: The muddy water is diverted into a settling pond, whose outflow
+      is clear. It is not the main source of the rusty water.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016843
+    m_Localized: Abandoned mine
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016844
+    m_Localized: Mine Entrance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016845
+    m_Localized: A mine on the eastern hillside has been sealed for years. The rock
+      below its entrance is stained rusty red.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016846
+    m_Localized: The sealing wall collapsed after the rain, releasing water trapped
+      in the mine into the creek.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016847
+    m_Localized: Irrigation district farms
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016848
+    m_Localized: Irrigation Fields
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016849
+    m_Localized: Farmers say their rice seedlings turned yellow after irrigation.
+      They suspect someone dumped something into the channel.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016850
+    m_Localized: Several households saw rusty water rush down from the eastern mine.
+      The irrigation channel changed color that same day.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016851
+    m_Localized: Detergent from the creekside guesthouse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016852
+    m_Localized: Direct slurry discharge from the quarry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1123016853
+    m_Localized: Acidic drainage from the abandoned mine
+    m_Metadata:
+      m_Items: []
+  - m_Id: 629949849600
+    m_Localized: Pollution from fish farming
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680832479232
+    m_Localized: FIELD TREATMENT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171008
+    m_Localized: Contain the discharge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171009
+    m_Localized: Divert the overflow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171010
+    m_Localized: Repair the mine barrier
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171011
+    m_Localized: Drag the three barriers into the marked positions in the drainage
+      channel.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171012
+    m_Localized: Drag in four pipe sections. Click to rotate and connect the outlet
+      to the holding tank.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171013
+    m_Localized: Match three repair panels to the gaps, then install both support
+      beams.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171014
+    m_Localized: Barriers {0} / 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171015
+    m_Localized: "Pipes {0} / 4 \xB7 Aligned {1} / 4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171016
+    m_Localized: "Panels {0} / 3 \xB7 Supports {1} / 2"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171017
+    m_Localized: Start the pump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171018
+    m_Localized: Finish treatment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171019
+    m_Localized: "Containing the pollution source\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171020
+    m_Localized: Ready. Confirm to complete treatment.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171021
+    m_Localized: Match the numbers. Click pipes to rotate; pale guides show the direction.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171022
+    m_Localized: All gaps are covered. Click both buttons to install the supports.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171023
+    m_Localized: Drag the parts below onto the pale guides. They snap into place.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171024
+    m_Localized: Installed.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171025
+    m_Localized: That position does not match. Try the corresponding guide.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171026
+    m_Localized: Board reset. Your investigation conclusion is saved.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171027
+    m_Localized: Left support
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171028
+    m_Localized: Right support
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171029
+    m_Localized: Secured
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171030
+    m_Localized: Farm drainage channel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171031
+    m_Localized: Factory emergency collection area
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171032
+    m_Localized: Abandoned mine entrance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171033
+    m_Localized: Contain the source, then continue with follow-up treatment.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171034
+    m_Localized: Source
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171035
+    m_Localized: Collection area
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171036
+    m_Localized: Overflow outlet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171037
+    m_Localized: Holding tank
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171038
+    m_Localized: DRAG THE PARTS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171039
+    m_Localized: Reset board
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171040
+    m_Localized: Treatment complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171041
+    m_Localized: Correct conclusion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680912171042
+    m_Localized: The source is contained. Follow-up treatment will continue; the
+      water needs time to recover.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680916365312
+    m_Localized: You found the source. Complete the treatment activity to clear this
+      chapter and unlock the next.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680916365313
+    m_Localized: Begin treatment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27680916365314
+    m_Localized: "Chapter {0} \xB7 {1} \xB7 Resume treatment"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36545842110464
+    m_Localized: Choose three of the five pieces to fill the gaps in the drainage
+      channel by shape.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36546009882624
+    m_Localized: Choose three of the five pieces to repair the mine barrier by shape.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36546009882625
+    m_Localized: Repair panels {0} / 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36546009882626
+    m_Localized: Match the gap shapes. Two pieces are not needed; you can retry any
+      incorrect placement.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36546009882627
+    m_Localized: The shape does not fit. Try another piece or gap.
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

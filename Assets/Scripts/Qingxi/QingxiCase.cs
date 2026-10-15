@@ -294,13 +294,13 @@ namespace Qingxi
             error = null;
             if (area < 0 || area >= progress.Length)
             {
-                error = "无效的调查区域";
+                error = QingxiLocalization.Text("无效的调查区域");
                 return false;
             }
             AreaProgress state = progress[area];
             if (state.SurfaceDone)
             {
-                error = "已经观察过这里";
+                error = QingxiLocalization.Text("已经观察过这里");
                 return false;
             }
 
@@ -314,20 +314,20 @@ namespace Qingxi
             error = null;
             if (area < 0 || area >= progress.Length)
             {
-                error = "无效的调查区域";
+                error = QingxiLocalization.Text("无效的调查区域");
                 return false;
             }
             AreaProgress state = progress[area];
             if (state.DeepDone)
             {
-                error = "已经深入核查过这里";
+                error = QingxiLocalization.Text("已经深入核查过这里");
                 return false;
             }
 
             AreaDefinition def = current.Areas[area];
             if (Points < def.DeepCost)
             {
-                error = "调查点数不足";
+                error = QingxiLocalization.Text("调查点数不足");
                 return false;
             }
 

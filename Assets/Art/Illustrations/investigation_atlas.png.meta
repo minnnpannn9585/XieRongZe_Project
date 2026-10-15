@@ -1,0 +1,551 @@
+fileFormatVersion: 2
+guid: 671e0168f7ea5a9419462f101789ed90
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3963068314862645367
+    second: investigation_atlas_0
+  - first:
+      213: -4434433444026873049
+    second: investigation_atlas_1
+  - first:
+      213: 1318029894031098279
+    second: investigation_atlas_2
+  - first:
+      213: 3000128197368089235
+    second: investigation_atlas_3
+  - first:
+      213: 4154634815735702712
+    second: investigation_atlas_4
+  - first:
+      213: -7747602983245112757
+    second: investigation_atlas_5
+  - first:
+      213: 1683794038350162712
+    second: investigation_atlas_6
+  - first:
+      213: 4923766008998045716
+    second: investigation_atlas_7
+  - first:
+      213: 6973145551369304659
+    second: investigation_atlas_8
+  - first:
+      213: 7427149268559197079
+    second: investigation_atlas_9
+  - first:
+      213: -3513094253237306630
+    second: investigation_atlas_10
+  - first:
+      213: 5940365080487394199
+    second: investigation_atlas_11
+  - first:
+      213: -546630236908597787
+    second: investigation_atlas_12
+  - first:
+      213: -1974886174665416758
+    second: investigation_atlas_13
+  - first:
+      213: -7149193900291342072
+    second: investigation_atlas_14
+  - first:
+      213: 511497338980861855
+    second: investigation_atlas_15
+  - first:
+      213: 1748867385897294310
+    second: investigation_atlas_16
+  - first:
+      213: -5801016191174468549
+    second: investigation_atlas_17
+  - first:
+      213: 7374914016891680156
+    second: investigation_atlas_18
+  - first:
+      213: 475693490310324994
+    second: investigation_atlas_19
+  - first:
+      213: 298066464448088532
+    second: investigation_atlas_20
+  - first:
+      213: 8937018382762714203
+    second: investigation_atlas_21
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: river_dock
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 933
+        width: 282
+        height: 296
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf16b77f08600794eb136c80911fccce
+      internalID: 378500067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: livestock_farm
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 957
+        width: 302
+        height: 234
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b7bd5dc19634494c82fbb0db09a222a
+      internalID: 901387473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fish_pond
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 949
+        width: 294
+        height: 222
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f8b12499a261fb4299cc87f83b1d712
+      internalID: 1907837319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: recycling_yard
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 972
+        width: 277
+        height: 209
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec78497bf78c0b242ba7c7c60fce2a23
+      internalID: -1128907797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: village_houses
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 641
+        width: 309
+        height: 266
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b40065708321cd34a9f5d562c540da1e
+      internalID: 152238849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reservoir_dock
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 638
+        width: 284
+        height: 286
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e949aaf31ee570e43be86b56805f3ce7
+      internalID: -1037500192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fish_cages
+      rect:
+        serializedVersion: 2
+        x: 637
+        y: 663
+        width: 308
+        height: 225
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b96caa510de4a5d49a1a2f89c66d028e
+      internalID: -977865202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fertilizer_factory
+      rect:
+        serializedVersion: 2
+        x: 955
+        y: 637
+        width: 286
+        height: 284
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f72e1f82a85273846b77c27997a5dc06
+      internalID: -1347552242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lakeside_restaurant
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 348
+        width: 293
+        height: 269
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d978c9182df8c424eb05fc1e367f9fa6
+      internalID: -1542006338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water_intake
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 358
+        width: 279
+        height: 233
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28f8353318bcb214c91d656c947a9fe7
+      internalID: -1212620882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: creek_sampling
+      rect:
+        serializedVersion: 2
+        x: 636
+        y: 339
+        width: 301
+        height: 243
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a4e337d6e517544cb2a1814c386b8df
+      internalID: 1285208455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mountain_guesthouse
+      rect:
+        serializedVersion: 2
+        x: 947
+        y: 343
+        width: 291
+        height: 253
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d250c0600799274daff9767f817084c
+      internalID: -856193332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stone_quarry
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 40
+        width: 297
+        height: 265
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 282ab08ddb5354f43b6a2f9bb4e430bf
+      internalID: 1921887331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mine_entrance
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 46
+        width: 302
+        height: 261
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec9d974cbabd49243bf54b74783ddbaf
+      internalID: 760946181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: irrigation_fields
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 30
+        width: 329
+        height: 270
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41bf2404cc88b04448fdf3d3f8b02a86
+      internalID: -1405889997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_investigator
+      rect:
+        serializedVersion: 2
+        x: 1023
+        y: 27
+        width: 139
+        height: 307
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ea410a4c6d6e544f875789e12d3e74b
+      internalID: -1752909119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 9207813b50ccf7244ae9ff18e3593a66
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      creek_sampling: 1285208455
+      fertilizer_factory: -1347552242
+      fish_cages: -977865202
+      fish_pond: 1907837319
+      irrigation_fields: -1405889997
+      lakeside_restaurant: -1542006338
+      livestock_farm: 901387473
+      mine_entrance: 760946181
+      mountain_guesthouse: -856193332
+      player_investigator: -1752909119
+      recycling_yard: -1128907797
+      reservoir_dock: -1037500192
+      river_dock: 378500067
+      stone_quarry: 1921887331
+      village_houses: 152238849
+      water_intake: -1212620882
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

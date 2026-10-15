@@ -6,8 +6,19 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/MainMenu.unity
+    guid: c240228c929a197468b5e71387860291
+  - enabled: 1
+    path: Assets/Scenes/RiverTown.unity
+    guid: a1b4688e289a6544795549b88685c429
+  - enabled: 1
+    path: Assets/Scenes/Reservoir.unity
+    guid: a89cbe093eeb0c64f9e37e32bd83197e
+  - enabled: 1
+    path: Assets/Scenes/MountainCreek.unity
+    guid: 66c652e021dde8449bf3bbfdda696cda
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 29ddd19c645a6904f881d32130c8dbab, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+    com.unity.localization.settings: {fileID: 11400000, guid: f97635a72d967804aa31ca202bf24f93, type: 2}
   m_UseUCBPForAssetBundles: 0

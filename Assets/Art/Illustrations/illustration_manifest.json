@@ -1,0 +1,377 @@
+{
+  "version": 1,
+  "generator": "Built-in image_gen.imagegen (no CLI/API fallback)",
+  "intendedStyle": "Pure flat color block illustration, sage/pine/turquoise/terracotta/ochre/cream palette.",
+  "coordinates": "rectUnityBottomLeft = [x, y, width, height] in source pixels. Source PNG y grows downward, Unity rect y grows upward.",
+  "importNotes": [
+    "The generator returned actual sizes below rather than requested resolutions.",
+    "Do not use exact equal-cell slicing: generated atlas spacing has small deviations; measured transparent seams are encoded here.",
+    "For transparent sprites, trim to visible alpha > 0.10 within each specified rect; retain 2px padding and use bilinear filtering and clamp wrap.",
+    "Near-transparent RGB fringe specks have alpha about 1/255. They look strong in the tool's transparency preview but have negligible contribution when alpha-blended. Do not infer crop bounds from alpha > 0 alone.",
+    "PNG illustrations still contain slight tonal variation after requested flat-color edits. The project may use its finite-palette illustration material for a strictly uniform-color game presentation.",
+    "Terrain panel boundary rows are antialiased. Rects omit 1-2 seam pixels to prevent adjacent-map colors leaking at edges."
+  ],
+  "atlases": [
+    {
+      "file": "investigation_atlas.png",
+      "width": 1254,
+      "height": 1254,
+      "alpha": true,
+      "arrangement": "4 columns, 4 rows; reading order top to bottom; measured nonuniform cell boundaries",
+      "sprites": [
+        {
+          "name": "river_dock",
+          "rectUnityBottomLeft": [
+            0,
+            931,
+            323,
+            323
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "name": "livestock_farm",
+          "rectUnityBottomLeft": [
+            323,
+            931,
+            306,
+            323
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "name": "fish_pond",
+          "rectUnityBottomLeft": [
+            629,
+            931,
+            316,
+            323
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "name": "recycling_yard",
+          "rectUnityBottomLeft": [
+            945,
+            931,
+            309,
+            323
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "name": "village_houses",
+          "rectUnityBottomLeft": [
+            0,
+            627,
+            323,
+            304
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "name": "reservoir_dock",
+          "rectUnityBottomLeft": [
+            323,
+            627,
+            306,
+            304
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "name": "fish_cages",
+          "rectUnityBottomLeft": [
+            629,
+            627,
+            316,
+            304
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "name": "fertilizer_factory",
+          "rectUnityBottomLeft": [
+            945,
+            627,
+            309,
+            304
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "name": "lakeside_restaurant",
+          "rectUnityBottomLeft": [
+            0,
+            335,
+            323,
+            292
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "name": "water_intake",
+          "rectUnityBottomLeft": [
+            323,
+            335,
+            306,
+            292
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "name": "creek_sampling",
+          "rectUnityBottomLeft": [
+            629,
+            335,
+            316,
+            292
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "name": "mountain_guesthouse",
+          "rectUnityBottomLeft": [
+            945,
+            335,
+            309,
+            292
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "name": "stone_quarry",
+          "rectUnityBottomLeft": [
+            0,
+            0,
+            323,
+            335
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "name": "mine_entrance",
+          "rectUnityBottomLeft": [
+            323,
+            0,
+            306,
+            335
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "name": "irrigation_fields",
+          "rectUnityBottomLeft": [
+            629,
+            0,
+            335,
+            335
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "name": "player_investigator",
+          "rectUnityBottomLeft": [
+            964,
+            0,
+            290,
+            335
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        }
+      ]
+    },
+    {
+      "file": "environment_atlas.png",
+      "width": 1254,
+      "height": 1254,
+      "alpha": true,
+      "arrangement": "2 columns, 2 rows; source horizontal split at y=680",
+      "sprites": [
+        {
+          "name": "broadleaf_tree",
+          "rectUnityBottomLeft": [
+            0,
+            574,
+            627,
+            680
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "name": "pine_tree",
+          "rectUnityBottomLeft": [
+            627,
+            574,
+            627,
+            680
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "name": "reeds",
+          "rectUnityBottomLeft": [
+            0,
+            0,
+            627,
+            574
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "name": "rocks",
+          "rectUnityBottomLeft": [
+            627,
+            0,
+            627,
+            574
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        }
+      ]
+    },
+    {
+      "file": "terrain_atlas.png",
+      "width": 849,
+      "height": 1852,
+      "alpha": false,
+      "arrangement": "3 vertical panels; top river valley, middle reservoir, bottom mountain stream; display each at 22 x 16 world units",
+      "sprites": [
+        {
+          "name": "river_town_map",
+          "rectUnityBottomLeft": [
+            0,
+            1237,
+            849,
+            615
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "name": "reservoir_map",
+          "rectUnityBottomLeft": [
+            0,
+            619,
+            849,
+            616
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "name": "mountain_creek_map",
+          "rectUnityBottomLeft": [
+            0,
+            0,
+            849,
+            618
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        }
+      ]
+    },
+    {
+      "file": "menu_panorama.png",
+      "width": 1122,
+      "height": 1402,
+      "alpha": false,
+      "arrangement": "single portrait illustration for the menu left half",
+      "sprites": [
+        {
+          "name": "menu_panorama",
+          "rectUnityBottomLeft": [
+            0,
+            0,
+            1122,
+            1402
+          ],
+          "pivotNormalized": [
+            0.5,
+            0.5
+          ]
+        }
+      ]
+    }
+  ],
+  "generationPrompts": {
+    "investigation_atlas": {
+      "initial": "Use case: illustration-story\nAsset type: a production transparent sprite atlas for a top-down environmental investigation game set in rural China.\nGenerate a square 2048 x 2048 PNG with a TRUE TRANSPARENT background. A strict invisible 4-column x 4-row grid makes 16 equal 512 x 512 cells. Exactly one separate sprite centered in every cell. Every sprite must fit completely inside its cell with at least 64 pixels of clear transparent padding on every side. No grid lines, no letters, no labels, no backdrop. Arrange the following subjects in exactly this reading order, from top left across each row:\nRow 1: (1) little river water-sampling dock: wooden pier with small teal testing hut and water sample crates, (2) rural livestock farm: low terracotta-roof barn with ivory walls and tiny fence, (3) rural fish pond: small enclosed turquoise pond with reeds and wood walkway, (4) recycling yard: small open shed with three distinct colored recycling containers and neatly bundled material.\nRow 2: (5) village houses: compact group of three traditional Chinese village homes with dark green tile roofs, ivory walls and terracotta doorways, (6) reservoir sampling dock: larger wooden T-shaped dock and teal monitoring cabinet, (7) aquaculture fish cages: three floating square net pens with orange floats, (8) fertilizer factory: compact cream industrial shed, two ochre silos and short chimney, no smoke.\nRow 3: (9) lakeside restaurant: warm orange-roof waterside Chinese pavilion restaurant with terrace and parasol, (10) water intake station: small sage-green pump house with two blue pipes, (11) mountain creek sampling point: stepping stones, small wooden footbridge and teal measuring post with a little rust-orange mineral-water puddle, (12) mountain guesthouse: charming two-story ivory inn with terracotta roof and small pine tree.\nRow 4: (13) stone quarry: irregular cluster of pale grey stepped stone ledges with tiny ochre excavator and stone blocks, (14) abandoned mine entrance: dark mine tunnel in warm ochre rock outcrop with wood beams and a short rail, (15) irrigation fields: small rectangular green and golden crop rows with a blue irrigation channel and wooden gate, (16) environmental field investigator character: full body friendly adult scientist wearing cream cap, teal jacket, ochre backpack, dark trousers and boots, holding a little sample case; facing slightly toward viewer.\nStyle/medium: beautiful editorial flat-color block illustration, distinctly designed silhouettes and authentic hand-drawn organic shapes, premium cozy game art. Slightly elevated three-quarter top-down orthographic view with visible front faces. All 16 subjects share identical perspective, lighting and palette. Crisp clean edges. Solid large color blocks only. Subtle simple solid-color side faces allowed, NO gradients, NO noise or paper texture, NO airbrushing, NO line art, NO photographic detail. Friendly mature art, not pixel art, not 3D rendering.\nPalette: creamy ivory, sage green, deep pine green, turquoise blue, terracotta orange, muted ochre, warm stone gray. Objects have carefully chosen contrasting colors, no harsh black.\nConstraints: exactly 16 isolated fully visible subjects, correctly ordered, transparent gutters; no ground tiles or circular bases, no scenery connecting cells, no text, no numbers, no visible borders, no decorative frame, no watermark. Make the character occupy around 75% of cell height and the buildings around 70% of each cell width.",
+      "styleRevision": "Use case: style-transfer\nAsset type: production game sprite atlas, exact same 4 x 4 grid and exact same 16 subjects and cell positions as the reference.\nEdit the attached sprite atlas. Change ONLY the rendering style to bold flat editorial illustration. Preserve all 16 identities, their order, approximate silhouette, isolated transparent composition, and grid placement, with generous empty gutters. The whole image must be a perfectly square 2048 x 2048 true-transparent PNG.\n\nThe current reference is too detailed and looks like a 3D painted diorama. Completely redraw every subject as designed 2D flat-color paper-cut illustration with 5 to 8 clean large solid color shapes per main object. Think sophisticated contemporary travel poster and children's editorial illustration. Eliminate ALL gradients, ALL lighting highlights, ALL noisy texture, ALL fine roof tile lines, ALL wood grain, ALL crop blades, ALL realistic water, ALL realistic shadowing. Roofs should be single broad color areas. Plants broad organic silhouettes. Water a single turquoise patch plus one or two clean lighter shapes. No individual paving stones except a handful of large stylized rocks. Faces minimal simple dots and friendly curved smile. Main character broad torso/jacket solid teal, cream cap, ochre backpack, dark pine trousers.\nIllustrative perspective: slight elevated view, flat drawn forms, very minimal side-face variation. No 3D shading. No outlines.\nStrict palette: cream #F5EAD3, sage #8FAA7A, pine #234E42, turquoise #58A7AB, orange #C96D43, ochre #D7A747, pale stone #B8B5A5. Solid color blocks only.\nExactly 4 x 4 grid, exactly 16 clean centered sprites with invisible cell divisions, true transparent background and transparent gutters. No text, no numbers, no labels, no grid border, no visible background, no watermark. Preserve semantic identities and arrangement of every reference sprite.",
+      "finalCleanup": "Use case: precise-object-edit\nEdit target: supplied game sprite sheet.\nTASK: Clean transparency perfectly and improve separation. Keep exact same 16 subjects and exact same order in a 4 by 4 invisible grid. Their artwork is already chosen. Remove every stray colorful speck, every detached yellow/red/green pixel cloud, all rough fringes, all noise, all shadow artifacts in the transparent areas. Each of the 16 objects must be one crisp, clean isolated cutout without scattered debris. All background and gutters must have alpha exactly zero. Antialiasing is allowed only in a ONE-pixel-wide smooth contour right next to the object. Do not add new background.\n\nLayout must be a precise 4 x 4 equal-cell square atlas. Reduce EVERY subject slightly so it is comfortably centered in its own equal-sized square cell with at least 12% empty transparent padding on every edge. All 16 subjects fully visible; nothing touches an image edge or crosses a cell boundary. In particular leave ample clear gutters between row 2 and 3 and row 3 and 4. Far bottom-right character remains completely inside its bottom-right cell, and all bottom-row sprites have transparent space below their feet/base.\nRendering: solid flat color areas, a flat paper-cut illustration. Replace shaded gradients with perfectly uniform colors. No texture. No dither. Clean cutout edges. No outlined border. No labels, no text, no grid lines, no watermark.\nOrder invariant (left-to-right top-to-bottom): river dock, livestock barn, fish pond, recycling shed; village houses, reservoir dock, floating fish cages, fertilizer factory; lakeside restaurant, water intake pump house, creek sampling point, mountain guesthouse; stone quarry, abandoned mine, irrigation fields, environmental investigator.\nDeliver a clean high-quality production PNG with true transparent alpha and absolutely no detached marks."
+    },
+    "environment_atlas": "Use case: illustration-story\nAsset type: transparent environmental sprite atlas for a cozy ecological field-investigation game in rural China.\nCreate ONE SQUARE PNG on a true transparent background. An invisible strict 2 x 2 grid with exactly four isolated, centered subjects, one per quarter. Every subject has generous empty transparent padding and no part touches or crosses another cell.\nTop left: single broadleaf tree, a warm terracotta trunk and irregular broad sage and pine green canopy shapes; charming organic hand-drawn silhouette.\nTop right: single mountain pine tree, pine green layered spreading boughs with elegant irregular silhouette, warm brown visible trunk.\nBottom left: one dense cluster of wetland reeds with sage green leaves and five ochre cattail flower heads.\nBottom right: a small group of three warm stone-gray river boulders and one little green tuft.\nStyle: pure flat-color block illustration. Large simple opaque shapes, simplified paper-cut silhouettes, elegant contemporary editorial artwork. Use only about 5 solid colors per subject. All areas are perfectly uniform SOLID colors. Crisp clean edges. Flat drawn perspective viewed at slightly elevated angle, shapes designed to match cute flat village-building sprites.\nPalette: sage green #8FAA7A, deep pine #234E42, muted ochre #D7A747, terracotta #C96D43, warm stone gray #B8B5A5, creamy ivory #F5EAD3.\nSTRICT: No gradients, no texture, no grain, no soft shadows, no 3D shading, no realism, no lighting effects, no ground plane, no background, no connecting environment, no visible grid, no words, no numbers, no outline stroke, no watermark.\nExactly four fully visible separate centered sprites in a 2 by 2 arrangement. True transparency. Square format.",
+    "terrain_atlas": {
+      "initial": "Use case: illustration-story\nAsset type: THREE playable 2D game terrain maps in a single vertical sprite atlas.\nCreate a tall rectangular opaque image, width 1408 height 3072 if possible. The image is divided into EXACTLY THREE seamless edge-to-edge horizontal rectangular panels of equal height, stacked top, middle, bottom. Each panel has a landscape ratio roughly 22:16. No gaps, no frames, no panel borders, no text. They will be cut into three independent game maps.\nCamera for every panel: true overhead bird's-eye terrain-map illustration, looking directly down; do not draw a horizon, sky, side-view mountains, buildings, characters, icons, symbols, labels, bridges, trees, bushes or furniture. Terrain only. The player and buildings will be added separately, so most land must remain generously empty and calm. Spacious rural countryside, environment investigation game.\nTOP PANEL — clear-water river valley: warm sage-green grassy ground. A turquoise river with organic winding banks enters from the top near x=65% and flows to the bottom near x=45%, making a broad gentle S curve through the middle. River is around 13% of panel width. Pale warm cream footpaths run on both sides and branch across the left and right broad empty meadow areas. A small empty ochre agricultural plot in lower left. At least 65% of panel is open land. No objects.\nMIDDLE PANEL — tranquil reservoir: sage and pale olive ground, a large irregular turquoise lake occupies the central-right area, extending from x=40% to x=87% and y=18% to y=82%. Cream shoreline contours, generous empty meadow land on all four margins and especially left side. Pale cream path loops outside the shoreline and branches to the edges. One low ochre earthen dam strip at lower right. No buildings, no objects.\nBOTTOM PANEL — mineral mountain stream: pale sage grass with broad flat warm-stone-gray rock outcrops along the upper edge and upper-right corner, simple layered contour shapes seen overhead; a narrow turquoise stream winds diagonally from upper right to lower center-left. A small muted rust-orange mineral patch near upper-right stream bank. Cream footpath follows both stream banks and branches to empty broad meadows at lower left and lower right. No objects.\nSTYLE — elegant contemporary flat editorial illustration, large perfectly uniform solid color regions, organic flowing contours, minimal carefully designed terrain silhouettes. Paper-cut visual design with crisp edges but NO paper texture. Every map uses a consistent calm palette: cream #F5EAD3, sage #A8BA8A, pine green #52755C used sparingly for contours, turquoise #70B9BA, terracotta #C96D43, muted ochre #D7A747, warm stone #B8B5A5. Water is a solid turquoise flat block with at most 2 broad lighter flat shapes. No gradients, no painted shading, no soft shadows, no texture, no grain, no noise, no tiny scattered markings, no realistic rendering, no 3D.\nSTRICT: exactly three separate horizontal landscape maps stacked vertically at equal heights; all terrain fills each entire panel to its edges; no words, numbers, logos, borders or watermark.",
+      "finalFlatColorRevision": "Use case: style-transfer\nEdit the attached three-panel terrain-map atlas. Preserve its exact overall dimensions and the exact panel boundaries and terrain geometry. Preserve every riverbank, reservoir outline, creek bend, path intersection, colored region silhouette and all placement. Do not move, add or remove any terrain features. The only change is making the rendering fully flat.\n\nRepaint EVERY existing color region with one absolutely uniform solid color. The attached image has unwanted slight gradients, cloudy shading and paper grain. Remove those completely. Every green region should be the same precise flat shade across its entire shape. Every turquoise water area should be one flat turquoise. Every cream path should be a flat cream. Every stone rock layer should be one flat shade. No pixels of subtle mottling, no light falloff, no gradient, no texture, no translucency, no glow, no brush strokes. Exactly like perfectly flat vector-art fills exported to PNG.\n\nPalette: primary grass #A8BA8A, darker vegetation regions #52755C, cream paths #F5EAD3, turquoise water #70B9BA, lighter water accents #8ACDCF, terracotta mineral #C96D43, ochre field and dam #D7A747, stone layers #B8B5A5 and #A9A696. Keep the source composition and shape boundaries exactly. Crisp antialiased edges. Opaque full-bleed image. Exactly three horizontal panels stacked vertically. No added text or border."
+    },
+    "menu_panorama": "Use case: style-transfer\nAsset type: very simple flat illustrated game-cover image, portrait 4:5, no words.\nUse the attached image as CONCEPT REFERENCE ONLY: rural Chinese village, turquoise river leading into reservoir and mountains, and a foreground environmental investigator seen from behind with cream cap, teal jacket and ochre backpack. Completely REDRAW and drastically simplify it. Do NOT preserve any of its tiny details or intricate foliage.\n\nTransform the scene into an extremely bold contemporary children's picture-book illustration, like large pieces of colored paper assembled into a poster. Aim for about 45 to 65 large organic cut-paper shapes across the ENTIRE artwork, plus minimal essential character/house details. Use a small handful of broad, uniform color regions. Each tree has just ONE big smooth lobed canopy shape, no individual leaves. A few tree shapes total, not hundreds. Use only FIVE village houses, each with one flat cream wall silhouette and one flat single-color roof, tiny simple door/window shapes. No roof tile lines. The lake and winding river form ONE uniform turquoise shape with no ripples, reflections or glints. Mountain backdrop just FOUR broad layered silhouettes. The foreground has no individual grasses, no reeds, no tiny flowers, no fine leaves; instead 2 or 3 large rounded plant silhouettes. One simple cream curving footpath. One small simple bridge with a single arch. Investigator body uses flat blocky coat, trousers, cap and backpack with minimal details.\n\nVisual language must be flat and clean like vector shapes. Every shape is filled with ONE unchanging opaque color. Only crisp antialiased boundaries, no outlines, no grain, no texture, no dithering, no stippling, no gradients, no shading, no lighting effects, no 3D, no fine lines, no tiny scattered marks, no intricate foliage, no photographic detail. The original is much too detailed; aggressively reduce complexity.\nPalette only: cream #F5EAD3, sage green #A8BA8A, deep pine #234E42, medium green #52755C, turquoise #70B9BA, pale blue #94C8C6, terracotta #C96D43, ochre #D7A747. Entire image uses these eight flat colors only.\nComposition: foreground person bottom-left, village and bridge middle, broad reservoir upper-middle, simple mountains upper third. Warm calm inviting atmosphere. Opaque full bleed portrait. No text, logos, borders or watermark."
+  }
+}

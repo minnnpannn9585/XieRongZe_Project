@@ -1,0 +1,792 @@
+{
+  "entries": [
+    {
+      "source": "语言",
+      "english": "Language"
+    },
+    {
+      "source": "环保专员  ·  现场手记",
+      "english": "ENVIRONMENT OFFICER · FIELD NOTES"
+    },
+    {
+      "source": "清溪治理手记",
+      "english": "Qingxi Field Notes"
+    },
+    {
+      "source": "三点调查权限。先看表面，再决定把实锤花在哪里。",
+      "english": "Three action points. Observe first, then decide where to dig deeper."
+    },
+    {
+      "source": "选择关卡",
+      "english": "Choose a case"
+    },
+    {
+      "source": "通关解锁下一关 · 调查自动保存，可随时续玩",
+      "english": "Solve each case to unlock the next. Progress saves automatically."
+    },
+    {
+      "source": "本次任务",
+      "english": "YOUR ASSIGNMENT"
+    },
+    {
+      "source": "WASD / 方向键移动，靠近场所按 E。\n表面观察免费；深入核查消耗 1 点行动点。\n按 N 展开笔记，Esc 返回。调查自动保存。",
+      "english": "Move with WASD / arrow keys. Press E near a location.\nObservations are free; each in-depth check costs 1 action point.\nN opens your notes. Esc goes back. Progress saves automatically."
+    },
+    {
+      "source": "返回主菜单",
+      "english": "Main menu"
+    },
+    {
+      "source": "开始调查",
+      "english": "Begin investigation"
+    },
+    {
+      "source": "行动点    3 / 3",
+      "english": "Action points    3 / 3"
+    },
+    {
+      "source": "保存并返回",
+      "english": "Save & return"
+    },
+    {
+      "source": "提交结论",
+      "english": "Make a conclusion"
+    },
+    {
+      "source": "WASD 移动    ·    靠近场所后按 E",
+      "english": "WASD to move · E near a location"
+    },
+    {
+      "source": "线索笔记",
+      "english": "Evidence notes"
+    },
+    {
+      "source": "展开 N",
+      "english": "Open N"
+    },
+    {
+      "source": "离开",
+      "english": "Leave"
+    },
+    {
+      "source": "表面观察 · 免费",
+      "english": "Observe · Free"
+    },
+    {
+      "source": "深入核查 · 1点",
+      "english": "Investigate · 1 point"
+    },
+    {
+      "source": "表面观察",
+      "english": "Observation"
+    },
+    {
+      "source": "深入核查",
+      "english": "In-depth check"
+    },
+    {
+      "source": "锁定主要污染源",
+      "english": "Identify the main pollution source"
+    },
+    {
+      "source": "先查看调查笔记，再选择主因。确认后公布答案；也可以返回继续调查。",
+      "english": "Review your notes and choose the main cause. Confirm to reveal the answer, or return to gather more evidence."
+    },
+    {
+      "source": "查看笔记 N",
+      "english": "Notes N"
+    },
+    {
+      "source": "返回调查",
+      "english": "Keep investigating"
+    },
+    {
+      "source": "确认结论",
+      "english": "Confirm"
+    },
+    {
+      "source": "通关",
+      "english": "Case solved"
+    },
+    {
+      "source": "线索提示",
+      "english": "Evidence explained"
+    },
+    {
+      "source": "重新调查",
+      "english": "Try again"
+    },
+    {
+      "source": "调查笔记",
+      "english": "Investigation notes"
+    },
+    {
+      "source": "关闭 Esc",
+      "english": "Close Esc"
+    },
+    {
+      "source": "滚轮 / 拖动阅读   ·   关键证据比表面现象更可靠",
+      "english": "Scroll / drag to read · Key evidence is more reliable than appearances"
+    },
+    {
+      "source": "调查完成",
+      "english": "Investigation complete"
+    },
+    {
+      "source": "再核对一次证据",
+      "english": "Check the evidence again"
+    },
+    {
+      "source": "你的结论：{0}",
+      "english": "Your conclusion: {0}"
+    },
+    {
+      "source": "正确答案：{0}",
+      "english": "Correct answer: {0}"
+    },
+    {
+      "source": "下一关",
+      "english": "Next case"
+    },
+    {
+      "source": "再调查本关",
+      "english": "Replay this case"
+    },
+    {
+      "source": "第 {0} 关 · {1} · 未解锁",
+      "english": "Case {0} · {1} · Locked"
+    },
+    {
+      "source": "第 {0} 关 · {1} · 已通关",
+      "english": "Case {0} · {1} · Solved"
+    },
+    {
+      "source": "第 {0} 关 · {1}",
+      "english": "Case {0} · {1}"
+    },
+    {
+      "source": "第 {0} 关 · {1} · 继续调查",
+      "english": "Case {0} · {1} · Continue"
+    },
+    {
+      "source": "行动点    {0} / {1}",
+      "english": "Action points    {0} / {1}"
+    },
+    {
+      "source": "已表面观察",
+      "english": "Observed"
+    },
+    {
+      "source": "尚未观察。信息偏模糊，可能夹带干扰。",
+      "english": "Not yet observed. First impressions can be vague or misleading."
+    },
+    {
+      "source": "已深入核查",
+      "english": "Investigation complete"
+    },
+    {
+      "source": "点数不足 · 需{0}点",
+      "english": "Not enough points · Need {0}"
+    },
+    {
+      "source": "深入核查 · {0}点",
+      "english": "Investigate · {0} point"
+    },
+    {
+      "source": "尚未核查。关键线索可以直接佐证或排除某个污染源。",
+      "english": "Not yet checked. Key evidence can directly support or rule out a pollution source."
+    },
+    {
+      "source": "线索笔记    {0}",
+      "english": "Evidence notes    {0}"
+    },
+    {
+      "source": "还没有线索。\n先用免费的表面观察判断方向，再把调查点数花在值得深挖的区域。",
+      "english": "No evidence yet.\nStart with free observations, then spend your action points on locations worth investigating further."
+    },
+    {
+      "source": "[关键]",
+      "english": "[Key]"
+    },
+    {
+      "source": "[普通]",
+      "english": "[Observation]"
+    },
+    {
+      "source": "：",
+      "english": ": "
+    },
+    {
+      "source": "{0} · {1} 条线索 / {2} 条关键证据 · 剩余 {3} 点",
+      "english": "{0} · Clues: {1} / Key evidence: {2} · Points left: {3}"
+    },
+    {
+      "source": "已深查",
+      "english": "Investigated"
+    },
+    {
+      "source": "已观察",
+      "english": "Observed"
+    },
+    {
+      "source": "未调查",
+      "english": "Unvisited"
+    },
+    {
+      "source": "按 E 离开",
+      "english": "E to leave"
+    },
+    {
+      "source": "WASD / 方向键移动  ·  E 调查  ·  N 笔记",
+      "english": "WASD / arrows to move · E investigate · N notes"
+    },
+    {
+      "source": "按 E 调查  {0}",
+      "english": "E to investigate: {0}"
+    },
+    {
+      "source": "无效的调查区域",
+      "english": "Invalid investigation area"
+    },
+    {
+      "source": "已经观察过这里",
+      "english": "You have already observed this location"
+    },
+    {
+      "source": "已经深入核查过这里",
+      "english": "You have already investigated this location"
+    },
+    {
+      "source": "调查点数不足",
+      "english": "Not enough action points"
+    },
+    {
+      "source": "河流浊水",
+      "english": "Murky River"
+    },
+    {
+      "source": "清溪小镇",
+      "english": "Qingxi Town"
+    },
+    {
+      "source": "清溪小镇  ·  河水自北向南",
+      "english": "Qingxi Town · The river flows south"
+    },
+    {
+      "source": "清溪小镇河流水质恶化，你是环保专员，携带 3 点调查权限，找出污染主因。",
+      "english": "The river in Qingxi Town is becoming polluted. As the environmental officer, use your 3 action points to identify the main source."
+    },
+    {
+      "source": "你准确锁定了主要污染源，后续治理工作顺利推进，清溪逐步恢复了清澈。",
+      "english": "You identified the main pollution source. Cleanup is progressing well, and Qingxi's river is gradually running clear again."
+    },
+    {
+      "source": "误判了主要污染源，治理效果不佳。建议重点核查上游排污相关的线索。",
+      "english": "The main source was misidentified, so cleanup has had little effect. Take a closer look at evidence of wastewater discharges upstream."
+    },
+    {
+      "source": "河流深查显示污染物以有机废水为主，塑料占比很低；鱼塘死亡源于上游来水中的毒素；养殖场有夜间偷排记录，废水处理设施已停运多月；回收站防渗层完好；居民证实深夜臭味来自养殖场方向。主要污染源是养殖场违规排污。",
+      "english": "Tests show mostly organic wastewater, with very little plastic. Fish deaths trace back to toxins from upstream. The livestock farm has records of illegal night discharges, and its treatment system has been idle for months. The recycling yard's liner is intact, while residents trace the nighttime odor to the farm. The main source is illegal wastewater discharge from the livestock farm."
+    },
+    {
+      "source": "河流区域",
+      "english": "River sampling site"
+    },
+    {
+      "source": "河流",
+      "english": "River"
+    },
+    {
+      "source": "河水浑浊，水面混杂着塑料碎屑和不明油渍",
+      "english": "The river is murky, with plastic fragments and unidentified oily patches on the surface."
+    },
+    {
+      "source": "水质检测显示污染物以有机废水为主，塑料占比很低",
+      "english": "Water tests show that organic wastewater makes up most of the pollution; plastic accounts for very little."
+    },
+    {
+      "source": "养殖场区域",
+      "english": "Livestock farm"
+    },
+    {
+      "source": "养殖场",
+      "english": "Livestock Farm"
+    },
+    {
+      "source": "养殖规模很大，排污口直通下游河流",
+      "english": "The livestock farm is large, and its discharge outlet leads directly to the river downstream."
+    },
+    {
+      "source": "查到夜间偷排记录，废水处理设施已停运多月",
+      "english": "Records reveal illegal wastewater discharges at night. The treatment system has been out of operation for months."
+    },
+    {
+      "source": "鱼塘区域",
+      "english": "Fish pond"
+    },
+    {
+      "source": "鱼塘",
+      "english": "Fish Pond"
+    },
+    {
+      "source": "鱼群出现死亡个体，养殖密度看起来偏高",
+      "english": "Some fish have died, and the pond appears overcrowded."
+    },
+    {
+      "source": "鱼体检测显示中毒特征，毒素源头来自上游来水",
+      "english": "Tests on the fish show signs of poisoning. The toxins came from upstream water."
+    },
+    {
+      "source": "回收站区域",
+      "english": "Recycling yard"
+    },
+    {
+      "source": "回收站",
+      "english": "Recycling Yard"
+    },
+    {
+      "source": "岸边堆着不少废弃塑料，看起来有渗漏风险",
+      "english": "Piles of discarded plastic sit beside the river, suggesting a risk of leakage."
+    },
+    {
+      "source": "防渗层完好无损，近期没有大量塑料渗漏的痕迹",
+      "english": "The protective liner is intact. There is no sign of a significant recent plastic leak."
+    },
+    {
+      "source": "居民社区",
+      "english": "Residential Area"
+    },
+    {
+      "source": "居民都抱怨最近河水味道大",
+      "english": "Residents complain that the river has smelled strongly in recent days."
+    },
+    {
+      "source": "多位居民证实，深夜养殖场方向飘来的臭味最明显",
+      "english": "Several residents confirm that the strongest odor comes from the livestock farm late at night."
+    },
+    {
+      "source": "养殖场违规排污",
+      "english": "Illegal discharge from the livestock farm"
+    },
+    {
+      "source": "回收站塑料渗漏",
+      "english": "Plastic leakage from the recycling yard"
+    },
+    {
+      "source": "鱼塘高密度养殖",
+      "english": "Overcrowding in the fish pond"
+    },
+    {
+      "source": "鱼塘养殖污染",
+      "english": "Pollution from fish farming"
+    },
+    {
+      "source": "水库藻华",
+      "english": "Reservoir Algal Bloom"
+    },
+    {
+      "source": "清溪水库",
+      "english": "Qingxi Reservoir"
+    },
+    {
+      "source": "清溪水库  ·  西侧支流汇入库区",
+      "english": "Qingxi Reservoir · A tributary enters from the west"
+    },
+    {
+      "source": "清溪水库是小镇饮用水源，近日水面泛绿。你是环保专员，携带 3 点调查权限，找出藻华主因。",
+      "english": "Qingxi Reservoir supplies the town's drinking water, but its surface has recently turned green. As the environmental officer, use your 3 action points to identify the main cause of the algal bloom."
+    },
+    {
+      "source": "你准确锁定了主要污染源，溢流被截住，水库藻华开始消退。",
+      "english": "You identified the main pollution source. The overflow has been stopped, and the reservoir's algal bloom is beginning to recede."
+    },
+    {
+      "source": "误判了主要污染源，藻华仍在扩散。建议重点核查西侧支流的高浓度来水。",
+      "english": "The main source was misidentified, and the bloom is still spreading. Investigate the heavily polluted water entering from the western tributary."
+    },
+    {
+      "source": "库区深查是氮磷引发的蓝藻，油类占比很低；网箱今年投喂量很小；餐馆排污已进市政管网；取水社区的异味从西侧支流涨水那天开始。化肥厂事故池在雨后溢流，高浓度氮磷废水进入支流。主要污染源是化肥厂雨后溢流。",
+      "english": "Tests identify a cyanobacterial bloom fueled by nitrogen and phosphorus, with very little oil. Fish-cage feeding is low this year, and the restaurant drains into the municipal sewer. Residents first noticed the odor when the western tributary rose. Rain caused the fertilizer plant's emergency holding pond to overflow into that tributary. The main source is the fertilizer plant's overflow after rain."
+    },
+    {
+      "source": "库区水面",
+      "english": "Reservoir surface"
+    },
+    {
+      "source": "库区",
+      "english": "Reservoir"
+    },
+    {
+      "source": "水面漂着大片绿色浮膜，还夹着少量油光",
+      "english": "Large green films float on the water, with a few oily streaks mixed in."
+    },
+    {
+      "source": "检测为蓝藻暴发，营养盐以氮磷为主，油类含量极低",
+      "english": "Tests identify a cyanobacterial bloom. The main nutrients are nitrogen and phosphorus; oil levels are extremely low."
+    },
+    {
+      "source": "网箱养殖",
+      "english": "Cage fish farm"
+    },
+    {
+      "source": "网箱",
+      "english": "Fish Cages"
+    },
+    {
+      "source": "库湾停着成片网箱，饲料袋堆在岸边",
+      "english": "Rows of fish cages occupy the bay, and feed bags are piled along the shore."
+    },
+    {
+      "source": "今年投喂量远低于往年，氮磷贡献很小，不是这次藻华的主因",
+      "english": "Feeding is far below previous years. The cages contribute little nitrogen or phosphorus and are not the main cause of this bloom."
+    },
+    {
+      "source": "化肥厂",
+      "english": "Fertilizer Plant"
+    },
+    {
+      "source": "西侧支流边的化肥厂气味刺鼻，厂墙外有湿漉漉的水痕",
+      "english": "The fertilizer plant beside the western tributary gives off a sharp odor. Wet streaks mark the ground outside its wall."
+    },
+    {
+      "source": "雨后事故池溢流，高浓度氮磷废水汇入西侧支流",
+      "english": "After the rain, the emergency holding pond overflowed, sending wastewater rich in nitrogen and phosphorus into the western tributary."
+    },
+    {
+      "source": "湖滨餐馆",
+      "english": "Lakeside restaurant"
+    },
+    {
+      "source": "餐馆",
+      "english": "Restaurant"
+    },
+    {
+      "source": "餐馆排污管伸向库湾，洗碗水味道很重",
+      "english": "The restaurant's drainage pipe points toward the bay, and there is a strong smell of dishwater."
+    },
+    {
+      "source": "排污已接入市政管网，近周抽查没有餐厨废水特征",
+      "english": "The drain is connected to the municipal sewer. Spot checks this past week found no signs of kitchen wastewater in the bay."
+    },
+    {
+      "source": "取水社区",
+      "english": "Water intake neighborhood"
+    },
+    {
+      "source": "取水口",
+      "english": "Water Intake"
+    },
+    {
+      "source": "居民说自来水发绿，煮开后仍有土腥味",
+      "english": "Residents say their tap water is greenish and still smells earthy after boiling."
+    },
+    {
+      "source": "多户确认异味从西侧支流涨水那天开始，和化肥厂方向的来水一致",
+      "english": "Several households say the odor began when the western tributary rose, matching the inflow from the fertilizer plant's direction."
+    },
+    {
+      "source": "库湾网箱养殖",
+      "english": "Fish-cage farming in the bay"
+    },
+    {
+      "source": "化肥厂雨后溢流",
+      "english": "Overflow from the fertilizer plant after rain"
+    },
+    {
+      "source": "湖滨餐馆直排",
+      "english": "Direct discharge from the lakeside restaurant"
+    },
+    {
+      "source": "山溪赤浊",
+      "english": "Rust-Red Mountain Creek"
+    },
+    {
+      "source": "清溪山溪",
+      "english": "Qingxi Mountain Creek"
+    },
+    {
+      "source": "清溪山溪  ·  留意东侧山腰的来水",
+      "english": "Qingxi Mountain Creek · Check the eastern hillside inflow"
+    },
+    {
+      "source": "清溪上游山溪突然变得赤黄，下游灌溉用水不能再用。你是环保专员，携带 3 点调查权限，找出赤浊主因。",
+      "english": "Qingxi's upper mountain creek has suddenly turned rusty yellow, making the downstream irrigation water unusable. As the environmental officer, use your 3 action points to identify the main cause."
+    },
+    {
+      "source": "你准确锁定了主要污染源，酸性涌水被拦住，山溪和灌溉渠逐渐变清。",
+      "english": "You identified the main pollution source. The acidic drainage has been contained, and the creek and irrigation channels are gradually clearing."
+    },
+    {
+      "source": "误判了主要污染源，赤浊仍在下泄。建议重点核查东侧山腰的锈色来水。",
+      "english": "The main source was misidentified, and rusty water is still flowing downstream. Investigate the rust-colored inflow from the eastern hillside."
+    },
+    {
+      "source": "山溪深查显示铁锰和酸度严重超标，是酸性矿水，泡沫不是主因；农家乐排水量很小；采石场沉淀池出水清澈；灌区农户看见赤浊从东侧矿硐方向冲下。矿硐封堵墙雨后坍塌，积水涌入山溪。主要污染源是废弃矿硐酸性涌水。",
+      "english": "Tests show excessive iron, manganese and acidity, pointing to acid mine drainage rather than foam. The guesthouse discharges little water, and the quarry's settling pond releases clear water. Farmers saw rusty water rush down from the eastern mine. Its sealing wall collapsed after rain, releasing trapped water into the creek. The main source is acidic drainage from the abandoned mine."
+    },
+    {
+      "source": "山溪河道",
+      "english": "Mountain creek channel"
+    },
+    {
+      "source": "山溪",
+      "english": "Mountain Creek"
+    },
+    {
+      "source": "溪水赤黄，石头上挂着锈色，水面还有白色泡沫",
+      "english": "The creek is rusty yellow, the rocks are stained red, and white foam floats on the surface."
+    },
+    {
+      "source": "铁锰和酸度严重超标，属于酸性矿水，泡沫解释不了整条溪的赤浊",
+      "english": "Iron, manganese and acidity are far above safe levels, indicating acid mine drainage. Foam cannot explain the entire creek's rusty color."
+    },
+    {
+      "source": "溪边农家乐",
+      "english": "Creekside guesthouse"
+    },
+    {
+      "source": "农家乐",
+      "english": "Guesthouse"
+    },
+    {
+      "source": "新开的农家乐把洗涤泡沫排进溪沟",
+      "english": "A newly opened guesthouse discharges foamy wash water into the creek."
+    },
+    {
+      "source": "排水量很小，主要是表面活性剂，对不上整条溪的酸度和铁锰",
+      "english": "The discharge is small and mainly contains surfactants. It cannot explain the creek's acidity, iron or manganese levels."
+    },
+    {
+      "source": "采石场",
+      "english": "Stone Quarry"
+    },
+    {
+      "source": "山坡采石场扬尘很大，泥浆沟直通溪沟",
+      "english": "The hillside quarry produces heavy dust, and a muddy ditch leads straight to the creek."
+    },
+    {
+      "source": "泥浆已导入沉淀池，出水清澈，不是这次赤浊的主因",
+      "english": "The muddy water is diverted into a settling pond, whose outflow is clear. It is not the main source of the rusty water."
+    },
+    {
+      "source": "废弃矿硐",
+      "english": "Abandoned mine"
+    },
+    {
+      "source": "矿硐",
+      "english": "Mine Entrance"
+    },
+    {
+      "source": "东侧山腰有处封闭多年的矿硐，硐口下方岩层被染成锈红色",
+      "english": "A mine on the eastern hillside has been sealed for years. The rock below its entrance is stained rusty red."
+    },
+    {
+      "source": "封堵墙在雨后坍塌，硐内积水涌入山溪",
+      "english": "The sealing wall collapsed after the rain, releasing water trapped in the mine into the creek."
+    },
+    {
+      "source": "灌区农户",
+      "english": "Irrigation district farms"
+    },
+    {
+      "source": "灌区",
+      "english": "Irrigation Fields"
+    },
+    {
+      "source": "农户说稻田进水后禾苗发黄，怀疑有人往渠里投了东西",
+      "english": "Farmers say their rice seedlings turned yellow after irrigation. They suspect someone dumped something into the channel."
+    },
+    {
+      "source": "多户看见赤浊从东侧矿硐方向冲下来，灌溉渠同一天变色",
+      "english": "Several households saw rusty water rush down from the eastern mine. The irrigation channel changed color that same day."
+    },
+    {
+      "source": "溪边农家乐洗涤剂",
+      "english": "Detergent from the creekside guesthouse"
+    },
+    {
+      "source": "采石场泥浆直排",
+      "english": "Direct slurry discharge from the quarry"
+    },
+    {
+      "source": "废弃矿硐酸性涌水",
+      "english": "Acidic drainage from the abandoned mine"
+    },
+    {
+      "source": "现场治理",
+      "english": "FIELD TREATMENT"
+    },
+    {
+      "source": "隔板拦截",
+      "english": "Contain the discharge"
+    },
+    {
+      "source": "溢流水引流",
+      "english": "Divert the overflow"
+    },
+    {
+      "source": "修复矿硐挡墙",
+      "english": "Repair the mine barrier"
+    },
+    {
+      "source": "拖动三块隔板，安装到排污沟的对应位置。",
+      "english": "Drag the three barriers into the marked positions in the drainage channel."
+    },
+    {
+      "source": "拖入四段管道，点击旋转，连接溢流口与收集池。",
+      "english": "Drag in four pipe sections. Click to rotate and connect the outlet to the holding tank."
+    },
+    {
+      "source": "按形状补齐三处缺口，再安装两根支撑杆。",
+      "english": "Match three repair panels to the gaps, then install both support beams."
+    },
+    {
+      "source": "隔板 {0} / 3",
+      "english": "Barriers {0} / 3"
+    },
+    {
+      "source": "管道 {0} / 4 · 方向正确 {1} / 4",
+      "english": "Pipes {0} / 4 · Aligned {1} / 4"
+    },
+    {
+      "source": "修补板 {0} / 3 · 支撑 {1} / 2",
+      "english": "Panels {0} / 3 · Supports {1} / 2"
+    },
+    {
+      "source": "启动抽水泵",
+      "english": "Start the pump"
+    },
+    {
+      "source": "确认治理成果",
+      "english": "Finish treatment"
+    },
+    {
+      "source": "正在控制污染源……",
+      "english": "Containing the pollution source…"
+    },
+    {
+      "source": "准备就绪，确认完成治理。",
+      "english": "Ready. Confirm to complete treatment."
+    },
+    {
+      "source": "按编号放置，点击管道旋转；浅色轮廓提示方向。",
+      "english": "Match the numbers. Click pipes to rotate; pale guides show the direction."
+    },
+    {
+      "source": "缺口已补齐，点击两侧按钮安装支撑杆。",
+      "english": "All gaps are covered. Click both buttons to install the supports."
+    },
+    {
+      "source": "把下方材料拖到浅色轮廓上，靠近后会自动吸附。",
+      "english": "Drag the parts below onto the pale guides. They snap into place."
+    },
+    {
+      "source": "安装到位。",
+      "english": "Installed."
+    },
+    {
+      "source": "位置不匹配，请放到对应轮廓上。",
+      "english": "That position does not match. Try the corresponding guide."
+    },
+    {
+      "source": "已重新摆放，调查结论保持不变。",
+      "english": "Board reset. Your investigation conclusion is saved."
+    },
+    {
+      "source": "安装左支撑",
+      "english": "Left support"
+    },
+    {
+      "source": "安装右支撑",
+      "english": "Right support"
+    },
+    {
+      "source": "已加固",
+      "english": "Secured"
+    },
+    {
+      "source": "养殖场排污沟",
+      "english": "Farm drainage channel"
+    },
+    {
+      "source": "化肥厂应急收集区",
+      "english": "Factory emergency collection area"
+    },
+    {
+      "source": "废弃矿硐入口",
+      "english": "Abandoned mine entrance"
+    },
+    {
+      "source": "先控制污染源，再交由后续处理。",
+      "english": "Contain the source, then continue with follow-up treatment."
+    },
+    {
+      "source": "污染源",
+      "english": "Source"
+    },
+    {
+      "source": "收集区",
+      "english": "Collection area"
+    },
+    {
+      "source": "溢流口",
+      "english": "Overflow outlet"
+    },
+    {
+      "source": "收集池",
+      "english": "Holding tank"
+    },
+    {
+      "source": "拖动材料",
+      "english": "DRAG THE PARTS"
+    },
+    {
+      "source": "重新摆放",
+      "english": "Reset board"
+    },
+    {
+      "source": "治理完成",
+      "english": "Treatment complete"
+    },
+    {
+      "source": "结论正确",
+      "english": "Correct conclusion"
+    },
+    {
+      "source": "污染源已控制。后续处理将继续，水体恢复需要时间。",
+      "english": "The source is contained. Follow-up treatment will continue; the water needs time to recover."
+    },
+    {
+      "source": "已锁定污染源。接下来请亲手完成治理，完成后解锁下一关。",
+      "english": "You found the source. Complete the treatment activity to clear this chapter and unlock the next."
+    },
+    {
+      "source": "开始治理",
+      "english": "Begin treatment"
+    },
+    {
+      "source": "第 {0} 关 · {1} · 继续治理",
+      "english": "Chapter {0} · {1} · Resume treatment"
+    },
+    {
+      "source": "从五块碎片中选出合适的三块，按形状补齐排污沟的缺口。",
+      "english": "Choose three of the five pieces to fill the gaps in the drainage channel by shape."
+    },
+    {
+      "source": "从五块碎片中选出合适的三块，按形状修复矿硐挡墙。",
+      "english": "Choose three of the five pieces to repair the mine barrier by shape."
+    },
+    {
+      "source": "修补板 {0} / 3",
+      "english": "Repair panels {0} / 3"
+    },
+    {
+      "source": "观察缺口形状再选择碎片；有两块用不上，放错可重试。",
+      "english": "Match the gap shapes. Two pieces are not needed; you can retry any incorrect placement."
+    },
+    {
+      "source": "形状不匹配，请试试其他碎片或缺口。",
+      "english": "The shape does not fit. Try another piece or gap."
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "generator": "Built-in image_gen.imagegen",
+  "reference": "Assets/Art/Illustrations/investigation_atlas.png, bottom-right investigator",
+  "file": "player_walk.png",
+  "dimensions": [
+    2172,
+    724
+  ],
+  "frames": 4,
+  "frameRate": 10,
+  "frameRectsUnityBottomLeft": [
+    [
+      0,
+      37,
+      543,
+      643
+    ],
+    [
+      543,
+      37,
+      543,
+      643
+    ],
+    [
+      1086,
+      37,
+      543,
+      643
+    ],
+    [
+      1629,
+      37,
+      543,
+      643
+    ]
+  ],
+  "pivotXNormalized": [
+    0.5543278084714549,
+    0.4852670349907919,
+    0.5220994475138122,
+    0.5064456721915286
+  ],
+  "pivotYNormalized": 0.003110419906687403,
+  "notes": [
+    "Shared crop and cap-aligned pivots; do not trim or scale each pose independently.",
+    "Idle holds the second (passing) pose.",
+    "No transform, root motion or artificial bobbing is animated."
+  ],
+  "prompts": [
+    "Use case: identity-preserve / game sprite animation. Input image is a REFERENCE ONLY: use ONLY the environmental investigator character in the BOTTOM RIGHT corner of the supplied atlas; ignore every building and landscape. Create a NEW transparent 4-frame walk-cycle sprite sheet for that exact character, keeping identity, outfit, colors and flat illustration style. Exactly four complete figures in ONE HORIZONTAL ROW, arranged in four equal-width square cells across a wide 4:1 canvas. Each figure is the same size and faces the same three-quarter right/front direction as the reference. Same cream baseball cap with dark green spot, dark ponytail, teal field jacket and trousers, mustard yellow backpack/straps, brown hiking boots, blue-and-white rectangular sample cooler held in the same hand. Natural basic walking cycle frame order left to right: 1 near leg steps forward and far leg back, 2 legs pass under body with one knee bent, 3 far leg steps forward and near leg back, 4 opposite passing pose with the other knee bent. The feet must clearly alternate, with modest opposed arm swing; cooler stays securely in hand. Keep head, face, hat, torso and backpack virtually identical in size, outline, position and viewing angle in all four frames; only arm/leg walking poses change. Flat solid large color blocks, crisp clean edges, no gradients, no grain, no hatching, no outlines, no 3D rendering. Real alpha transparency, no background, no floor, no cast shadow, no text, no frame borders or numbers. All four figures centered in their cells with hat tops aligned and planted boot soles on the same baseline around 90 percent of cell height; ample transparent gaps between figures. All hats, hands, cooler and boots fully inside each cell. No cropping, no extra figures, no additional poses, no perspective or identity drift.",
+    "Precise sprite-sheet animation correction. Edit the supplied transparent four-character sheet, preserving the 4 equal cells, character identity, faces, hats, upper-body scale, transparent background and aligned head positions. This is a four-frame WALK CYCLE, not repeated poses. Keep frame 1 (far left) and frame 2 (second from left) as they are. CHANGE THE LEGS AND ARM SWING of frame 3 (third from left) and frame 4 (far right) so they form the OPPOSITE half-step. Frame 3: swap the stride: the leg rooted under the viewer-LEFT hip now swings FORWARD toward image-right with its brown boot reaching right and slightly upward; the leg rooted under the viewer-RIGHT hip now extends BACK toward image-left with its brown boot on the left. The trousers' inner seam and the overlap at the hips must clearly show which leg crosses in front. Move the free arm backward rather than forward; the sample cooler arm counter-swings naturally while retaining the cooler. Frame 4: the leg rooted under the viewer-RIGHT hip is the lifted BENT KNEE passing leg, its boot tucked behind and visibly off the ground, while the viewer-LEFT leg is planted straight under the body. This MUST be visibly different from frame 2, where the OTHER knee is raised. Four distinct sequential silhouettes: contact / passing / opposite contact / opposite passing. Do not duplicate frame 1 as frame 3. Do not duplicate frame 2 as frame 4. Keep every hat and body at the same size, same baseline, same palette, same flat large-color-block style. Do not alter costume or backpack or cooler design. No floor, no shadow, no borders, no numbers, no text. Real alpha transparency."
+  ]
+}

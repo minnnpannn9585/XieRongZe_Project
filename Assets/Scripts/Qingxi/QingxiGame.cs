@@ -1,14 +1,16 @@
 using System;
+using L = Qingxi.QingxiLocalization;
 using System.Collections;
 using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Qingxi
 {
     /// <summary>
-    /// Runtime UGUI prototype. Press Play in any scene; the interface is built from color blocks and text.
+    /// Coordinates a saved scene's investigation state and authored UI components.
     /// </summary>
     public sealed partial class QingxiGame : MonoBehaviour
     {
@@ -18,9 +20,11 @@ namespace Qingxi
             Intro,
             Investigate,
             Deduce,
-            Result
+            Result,
+            Cleanup
         }
 
+        [Serializable]
         sealed class ChoiceView
         {
             public int Index;
@@ -28,6 +32,7 @@ namespace Qingxi
             public Text Label;
         }
 
+        [Serializable]
         sealed class LevelButton
         {
             public int Index;
@@ -51,7 +56,11 @@ namespace Qingxi
         const string UnlockedKey = "Qingxi.UnlockedThrough";
         const string ClearedKey = "Qingxi.ClearedMask";
 
-        static Sprite whiteSprite;
+        public const string MenuSceneName = "MainMenu";
+        static readonly string[] CaseSceneNames = { "RiverTown", "Reservoir", "MountainCreek" };
+
+        [SerializeField, Tooltip("-1 = 主菜单，0 = 河镇，1 = 水库，2 = 山溪")]
+        int sceneCaseIndex = -1;
 
         Font uiFont;
         InvestigationSession session;
@@ -59,398 +68,120 @@ namespace Qingxi
         int unlockedThrough;
         int clearedMask;
         bool resultCorrect;
+        bool loadingScene;
         int? selectedArea;
         int? selectedSuspect;
 
-        GameObject menuPanel;
-        LevelButton[] levelButtons;
-        GameObject introPanel;
-        GameObject investigatePanel;
-        GameObject deducePanel;
-        GameObject resultPanel;
+        [SerializeField] GameObject menuPanel;
+        [SerializeField] LevelButton[] levelButtons;
+        [SerializeField] GameObject introPanel;
+        [SerializeField] GameObject investigatePanel;
+        [SerializeField] GameObject deducePanel;
+        [SerializeField] GameObject resultPanel;
 
-        Text introChapter;
-        Text introBody;
-        Text headerTitle;
-        Text mapCaption;
-        Text pointsText;
-        Text promptText;
+        [SerializeField] Text introChapter;
+        [SerializeField] Text introBody;
+        [SerializeField] Text headerTitle;
+        [SerializeField] Text mapCaption;
+        [SerializeField] Text pointsText;
+        [SerializeField] Text promptText;
 
-        TownExplorer explorer;
-        QingxiPoster poster;
-        int explorerCase = -1;
-        GameObject interactDim;
-        Text detailTitle;
-        Button surfaceButton;
-        Button deepButton;
-        Text surfaceLabel;
-        Text deepLabel;
-        Text surfaceBody;
-        Text deepBody;
-        Text notesHeader;
-        ScrollRect notebookScroll;
-        Text notebookText;
+        [SerializeField] TownExplorer explorer;
+        [SerializeField] GameObject interactDim;
+        [SerializeField] Text detailTitle;
+        [SerializeField] Button surfaceButton;
+        [SerializeField] Button deepButton;
+        [SerializeField] Text surfaceLabel;
+        [SerializeField] Text deepLabel;
+        [SerializeField] Text surfaceBody;
+        [SerializeField] Text deepBody;
+        [SerializeField] Text notesHeader;
+        [SerializeField] ScrollRect notebookScroll;
+        [SerializeField] Text notebookText;
 
-        ChoiceView[] choices;
-        Button confirmButton;
+        [SerializeField] ChoiceView[] choices;
+        [SerializeField] Button confirmButton;
 
-        Image resultStrip;
-        Image resultDim;
-        Text resultTitle;
-        Text resultComment;
-        Text resultChoice;
-        Text resultTruth;
-        Text resultHint;
-        Text restartLabel;
+        [SerializeField] Image resultStrip;
+        [SerializeField] Image resultDim;
+        [SerializeField] Text resultTitle;
+        [SerializeField] Text resultComment;
+        [SerializeField] Text resultChoice;
+        [SerializeField] Text resultTruth;
+        [SerializeField] Text resultHint;
+        [SerializeField] Text restartLabel;
 
-        CanvasGroup detailGroup;
-        CanvasGroup notebookGroup;
+        [SerializeField] CanvasGroup detailGroup;
+        [SerializeField] CanvasGroup notebookGroup;
         Coroutine phaseRoutine;
+        bool phaseTransitioning;
         Coroutine detailRoutine;
         int shownPoints = -1;
         int shownClues = -1;
-
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        static void Bootstrap()
-        {
-            if (FindAnyObjectByType<QingxiGame>() != null)
-                return;
-
-            var go = new GameObject("清溪治理手记");
-            go.AddComponent<QingxiGame>();
-        }
 
         void Awake()
         {
             uiFont = LoadUiFont();
             WarmFont();
-            caseIndex = 0;
+            foreach (Text text in GetComponentsInChildren<Text>(true))
+                text.font = uiFont;
             LoadProgress();
-            session = new InvestigationSession(QingxiCases.Get(caseIndex));
-            EnsureEventSystem();
-            TintCamera();
-            BuildUi();
-            ApplyCaseChrome();
-            Show(Phase.Menu);
-        }
-
-        void TintCamera()
-        {
-            Camera cam = Camera.main;
-            if (cam == null)
-                return;
-
-            cam.clearFlags = CameraClearFlags.SolidColor;
-            cam.backgroundColor = Page;
-        }
-
-        void EnsureEventSystem()
-        {
-            if (FindAnyObjectByType<EventSystem>() != null)
-                return;
-
-            var go = new GameObject("EventSystem");
-            go.transform.SetParent(transform, false);
-            go.AddComponent<EventSystem>();
-#if ENABLE_INPUT_SYSTEM
-            go.AddComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
-#else
-            go.AddComponent<StandaloneInputModule>();
-#endif
-        }
-
-        void BuildUi()
-        {
-            var canvasGo = new GameObject("Canvas", typeof(RectTransform));
-            canvasGo.transform.SetParent(transform, false);
-            var canvas = canvasGo.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.sortingOrder = 10;
-            var scaler = canvasGo.AddComponent<CanvasScaler>();
-            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(1920f, 1080f);
-            scaler.matchWidthOrHeight = 0.5f;
-            scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
-            canvasGo.AddComponent<GraphicRaycaster>();
-
-            menuPanel = BuildMenu(canvasGo.transform);
-            introPanel = BuildIntro(canvasGo.transform);
-            investigatePanel = BuildInvestigation(canvasGo.transform);
-            deducePanel = BuildDeduction(canvasGo.transform);
-            resultPanel = BuildResult(canvasGo.transform);
-            BuildJournalOverlay(canvasGo.transform);
-            var posterGo = new GameObject("MenuPoster");
-            posterGo.transform.SetParent(transform, false);
-            posterGo.SetActive(false);
-            poster = posterGo.AddComponent<QingxiPoster>();
-            poster.Build(uiFont);
-            ApplyCaseChrome();
             PreparePanels();
-        }
-
-        GameObject BuildMenu(Transform parent)
-        {
-            var root = CreatePanel(parent, "Menu", new Color(0f, 0f, 0f, 0f));
-            CreateImage(root.transform, "Page", Page, new Vector2(0.48f, 0f), new Vector2(1f, 1f), false);
-            var rule = CreateImage(root.transform, "Rule", Gold, new Vector2(0.48f, 0.06f), new Vector2(0.48f, 0.94f), false);
-            rule.rectTransform.offsetMax = new Vector2(6f, 0f);
-
-            var sheet = CreateImage(root.transform, "Sheet", Panel, new Vector2(0.54f, 0.08f), new Vector2(0.94f, 0.92f), false);
-            CreateText(sheet.transform, "Kicker", "环保专员  ·  现场手记", 18, Gold, TextAnchor.LowerLeft,
-                new Vector2(0.08f, 0.86f), new Vector2(0.92f, 0.94f));
-            CreateText(sheet.transform, "Title", "清溪治理手记", 48, Paper, TextAnchor.MiddleLeft,
-                new Vector2(0.08f, 0.72f), new Vector2(0.92f, 0.86f), FontStyle.Bold);
-            CreateText(sheet.transform, "Lead", "三点调查权限。先看表面，再决定把实锤花在哪里。", 20, Muted, TextAnchor.UpperLeft,
-                new Vector2(0.08f, 0.60f), new Vector2(0.92f, 0.72f));
-            CreateText(sheet.transform, "SheetTitle", "选择关卡", 30, Paper, TextAnchor.MiddleLeft,
-                new Vector2(0.08f, 0.50f), new Vector2(0.92f, 0.60f), FontStyle.Bold);
-            CreateText(sheet.transform, "SheetSub", "通关解锁下一关 · 调查自动保存，可随时续玩", 18, Muted, TextAnchor.UpperLeft,
-                new Vector2(0.08f, 0.43f), new Vector2(0.92f, 0.50f));
-
-            levelButtons = new LevelButton[QingxiCases.Count];
-            for (int i = 0; i < QingxiCases.Count; i++)
+            if (sceneCaseIndex < 0)
             {
-                float top = 0.40f - i * 0.12f;
-                float bottom = top - 0.10f;
-                int index = i;
-                Button button = CreateButton(sheet.transform, "BtnLevel_" + index, "", Card, Paper, 26,
-                    new Vector2(0.08f, bottom), new Vector2(0.92f, top));
-                button.onClick.AddListener(() => EnterCase(index));
-                levelButtons[i] = new LevelButton
-                {
-                    Index = index,
-                    Button = button,
-                    Image = button.GetComponent<Image>(),
-                    Label = button.GetComponentInChildren<Text>()
-                };
+                RefreshMenu();
+                Show(Phase.Menu, false);
+                return;
             }
 
-            RefreshMenu();
-            return root;
-        }
-
-        GameObject BuildIntro(Transform parent)
-        {
-            var root = CreatePanel(parent, "Intro", new Color(0f, 0f, 0f, 0f));
-            CreateImage(root.transform, "Dim", new Color(0.10f, 0.16f, 0.13f, 0.28f), Vector2.zero, Vector2.one, true);
-
-            var titleCard = CreateImage(root.transform, "TitleCard", Panel, new Vector2(0.04f, 0.64f), new Vector2(0.38f, 0.92f), false);
-            var rule = CreateImage(titleCard.transform, "Rule", Gold, new Vector2(0f, 0.1f), new Vector2(0f, 0.9f), false);
-            rule.rectTransform.offsetMax = new Vector2(6f, 0f);
-            CreateText(titleCard.transform, "Kicker", "本次任务", 18, Gold, TextAnchor.LowerLeft,
-                new Vector2(0.12f, 0.68f), new Vector2(0.92f, 0.9f));
-            introChapter = CreateText(titleCard.transform, "Chapter", "", 36, Paper, TextAnchor.MiddleLeft,
-                new Vector2(0.12f, 0.28f), new Vector2(0.92f, 0.7f), FontStyle.Bold);
-            CreateText(titleCard.transform, "Title", "清溪治理手记", 18, Muted, TextAnchor.UpperLeft,
-                new Vector2(0.12f, 0.08f), new Vector2(0.92f, 0.28f));
-
-            var card = CreateImage(root.transform, "Card", Panel, new Vector2(0.46f, 0.12f), new Vector2(0.94f, 0.88f), false);
-            introBody = CreateText(card.transform, "Body", "", 28, Paper, TextAnchor.UpperLeft,
-                new Vector2(0.08f, 0.58f), new Vector2(0.92f, 0.90f));
-            CreateText(card.transform, "Rule",
-                "WASD / 方向键移动，靠近场所按 E。\n表面观察免费；深入核查消耗 1 点行动点。\n按 N 展开笔记，Esc 返回。调查自动保存。",
-                22, Muted, TextAnchor.UpperLeft,
-                new Vector2(0.08f, 0.28f), new Vector2(0.92f, 0.56f));
-
-            Button back = CreateButton(card.transform, "BtnIntroMenu", "返回主菜单", Card, Paper, 24,
-                new Vector2(0.08f, 0.08f), new Vector2(0.46f, 0.22f));
-            back.onClick.AddListener(AbandonToMenu);
-
-            Button start = CreateButton(card.transform, "BtnStart", "开始调查", Gold, Ink, 26,
-                new Vector2(0.52f, 0.08f), new Vector2(0.92f, 0.22f));
-            start.onClick.AddListener(BeginInvestigation);
-            return root;
-        }
-
-        GameObject BuildInvestigation(Transform parent)
-        {
-            var root = CreatePanel(parent, "Investigate", new Color(0f, 0f, 0f, 0f));
-
-            var hud = CreateImage(root.transform, "Hud", new Color(0.98f, 0.97f, 0.94f, 0.92f),
-                new Vector2(0.02f, 0.90f), new Vector2(0.98f, 0.98f), false);
-            headerTitle = CreateText(hud.transform, "Title", "", 28, Paper, TextAnchor.MiddleLeft,
-                new Vector2(0.02f, 0.48f), new Vector2(0.28f, 1f), FontStyle.Bold);
-            mapCaption = CreateText(hud.transform, "Caption", "", 16, Muted, TextAnchor.UpperLeft,
-                new Vector2(0.02f, 0.05f), new Vector2(0.46f, 0.48f));
-            pointsText = CreateText(hud.transform, "Points", "行动点    3 / 3", 22, Gold, TextAnchor.MiddleLeft,
-                new Vector2(0.30f, 0f), new Vector2(0.52f, 1f));
-            Button abandon = CreateButton(hud.transform, "BtnAbandon", "保存并返回", Card, Paper, 18,
-                new Vector2(0.62f, 0.16f), new Vector2(0.78f, 0.84f));
-            abandon.onClick.AddListener(AbandonToMenu);
-            Button submit = CreateButton(hud.transform, "BtnSubmitConclusion", "提交结论", Gold, Ink, 18,
-                new Vector2(0.80f, 0.16f), new Vector2(0.98f, 0.84f));
-            submit.onClick.AddListener(OpenDeduction);
-
-            var promptBg = CreateImage(root.transform, "PromptBg", new Color(0.11f, 0.16f, 0.14f, 0.82f),
-                new Vector2(0.32f, 0.03f), new Vector2(0.68f, 0.09f), false);
-            promptText = CreateText(promptBg.transform, "Prompt", "WASD 移动    ·    靠近场所后按 E", 20, Ink, TextAnchor.MiddleCenter,
-                Vector2.zero, Vector2.one);
-
-            var journal = CreateImage(root.transform, "Journal", new Color(0.98f, 0.97f, 0.94f, 0.9f),
-                new Vector2(0.02f, 0.12f), new Vector2(0.28f, 0.40f), false);
-            notesHeader = CreateText(journal.transform, "NotesHeader", "线索笔记", 18, Paper, TextAnchor.MiddleLeft,
-                new Vector2(0.06f, 0.78f), new Vector2(0.94f, 0.98f));
-            CreateNotebook(journal.transform, new Vector2(0.05f, 0.06f), new Vector2(0.95f, 0.76f));
-            Button expand = CreateButton(journal.transform, "BtnExpandNotes", "展开 N", Card, Paper, 16,
-                new Vector2(0.65f, 0.80f), new Vector2(0.95f, 0.96f));
-            expand.onClick.AddListener(ToggleJournal);
-
-            var overlay = CreateRect(root.transform, "Interact", Vector2.zero, Vector2.one);
-            interactDim = overlay.gameObject;
-            Image dim = CreateImage(overlay, "Dim", new Color(0.08f, 0.12f, 0.10f, 0.45f),
-                Vector2.zero, Vector2.one, true);
-            var dimButton = dim.gameObject.AddComponent<Button>();
-            dimButton.targetGraphic = dim;
-            StyleButton(dimButton);
-            dimButton.onClick.AddListener(CloseInteract);
-
-            var card = CreateImage(overlay, "Card", Panel, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), true);
-            card.rectTransform.sizeDelta = new Vector2(760f, 520f);
-            detailGroup = card.gameObject.AddComponent<CanvasGroup>();
-
-            detailTitle = CreateText(card.transform, "AreaTitle", "", 34, Paper, TextAnchor.MiddleLeft,
-                new Vector2(0.06f, 0.82f), new Vector2(0.7f, 0.96f), FontStyle.Bold);
-            Button leave = CreateButton(card.transform, "BtnLeave", "离开", Card, Paper, 18,
-                new Vector2(0.74f, 0.84f), new Vector2(0.94f, 0.95f));
-            leave.onClick.AddListener(CloseInteract);
-
-            surfaceButton = CreateButton(card.transform, "BtnSurface", "表面观察 · 免费", SurfaceColor, Ink, 20,
-                new Vector2(0.06f, 0.66f), new Vector2(0.48f, 0.80f));
-            surfaceLabel = surfaceButton.GetComponentInChildren<Text>();
-            surfaceButton.onClick.AddListener(OnSurface);
-
-            deepButton = CreateButton(card.transform, "BtnDeep", "深入核查 · 1点", DeepColor, Ink, 20,
-                new Vector2(0.52f, 0.66f), new Vector2(0.94f, 0.80f));
-            deepLabel = deepButton.GetComponentInChildren<Text>();
-            deepButton.onClick.AddListener(OnDeep);
-
-            CreateText(card.transform, "SurfaceHead", "表面观察", 16, Muted, TextAnchor.LowerLeft,
-                new Vector2(0.06f, 0.52f), new Vector2(0.94f, 0.64f));
-            surfaceBody = CreateText(card.transform, "SurfaceBody", "", 22, Paper, TextAnchor.UpperLeft,
-                new Vector2(0.06f, 0.34f), new Vector2(0.94f, 0.52f));
-            CreateText(card.transform, "DeepHead", "深入核查", 16, Gold, TextAnchor.LowerLeft,
-                new Vector2(0.06f, 0.22f), new Vector2(0.94f, 0.34f));
-            deepBody = CreateText(card.transform, "DeepBody", "", 22, Gold, TextAnchor.UpperLeft,
-                new Vector2(0.06f, 0.06f), new Vector2(0.94f, 0.22f));
-
-            promptBg.transform.SetAsLastSibling();
-            journal.transform.SetAsLastSibling();
-            hud.transform.SetAsLastSibling();
-            overlay.SetAsLastSibling();
-            interactDim.SetActive(false);
-            return root;
-        }
-
-        void CreateNotebook(Transform parent, Vector2 anchorMin, Vector2 anchorMax)
-        {
-            var bg = CreateImage(parent, "Notebook", new Color(0.933f, 0.945f, 0.925f, 1f), anchorMin, anchorMax, true);
-            notebookGroup = bg.gameObject.AddComponent<CanvasGroup>();
-            notebookScroll = bg.gameObject.AddComponent<ScrollRect>();
-            notebookScroll.horizontal = false;
-            notebookScroll.vertical = true;
-            notebookScroll.movementType = ScrollRect.MovementType.Clamped;
-            notebookScroll.scrollSensitivity = 40f;
-            notebookScroll.inertia = true;
-
-            var viewport = CreateRect(bg.transform, "Viewport", Vector2.zero, Vector2.one);
-            viewport.offsetMin = new Vector2(14f, 12f);
-            viewport.offsetMax = new Vector2(-14f, -12f);
-            viewport.gameObject.AddComponent<RectMask2D>();
-
-            notebookText = CreateText(viewport, "Content", "", 20, Muted, TextAnchor.UpperLeft,
-                new Vector2(0f, 1f), new Vector2(1f, 1f), FontStyle.Normal, VerticalWrapMode.Overflow);
-            RectTransform content = notebookText.rectTransform;
-            content.pivot = new Vector2(0.5f, 1f);
-            var fitter = notebookText.gameObject.AddComponent<ContentSizeFitter>();
-            fitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
-            fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-
-            notebookScroll.viewport = viewport;
-            notebookScroll.content = content;
-        }
-
-        GameObject BuildDeduction(Transform parent)
-        {
-            var root = CreatePanel(parent, "Deduce", new Color(0f, 0f, 0f, 0f));
-            CreateImage(root.transform, "Dim", new Color(0.08f, 0.12f, 0.10f, 0.34f), Vector2.zero, Vector2.one, true);
-            var card = CreateImage(root.transform, "Card", Panel, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), false);
-            card.rectTransform.sizeDelta = new Vector2(920f, 780f);
-
-            var strip = CreateImage(card.transform, "Strip", Gold, new Vector2(0f, 0f), new Vector2(0f, 1f), false);
-            strip.rectTransform.offsetMax = new Vector2(8f, 0f);
-
-            CreateText(card.transform, "Title", "锁定主要污染源", 40, Paper, TextAnchor.MiddleLeft,
-                new Vector2(0.08f, 0.84f), new Vector2(0.92f, 0.96f), FontStyle.Bold);
-            CreateText(card.transform, "Sub",
-                "先查看调查笔记，再选择主因。确认后公布答案；也可以返回继续调查。",
-                22, Muted, TextAnchor.MiddleLeft,
-                new Vector2(0.08f, 0.74f), new Vector2(0.92f, 0.84f));
-
-            choices = new ChoiceView[session.Case.Suspects.Length];
-            for (int i = 0; i < session.Case.Suspects.Length; i++)
+            // A level can be played directly in the editor, independently of menu unlocks.
+            caseIndex = Mathf.Clamp(sceneCaseIndex, 0, QingxiCases.Count - 1);
+            bool resumed = InvestigationSave.TryLoad(caseIndex, out InvestigationSession saved);
+            session = resumed ? saved : new InvestigationSession(QingxiCases.Get(caseIndex));
+            if (explorer == null)
+                explorer = FindAnyObjectByType<TownExplorer>(FindObjectsInactive.Include);
+            if (explorer != null)
             {
-                float top = 0.70f - i * 0.16f;
-                float bottom = top - 0.13f;
-                int index = i;
-                string label = session.Case.Suspects[i].Label;
-                Button button = CreateButton(card.transform, "BtnSuspect_" + index, label, Card, Paper, 28,
-                    new Vector2(0.1f, bottom), new Vector2(0.9f, top));
-                button.onClick.AddListener(() => SelectSuspect(index));
-                choices[i] = new ChoiceView
-                {
-                    Index = index,
-                    Image = button.GetComponent<Image>(),
-                    Label = button.GetComponentInChildren<Text>()
-                };
+                explorer.Initialize(session, uiFont);
+                explorer.OnOpen = OpenInteract;
+                explorer.OnClose = CloseInteract;
             }
-
-            Button giveUp = CreateButton(card.transform, "BtnDeduceNotes", "查看笔记 N", Card, Paper, 22,
-                new Vector2(0.08f, 0.05f), new Vector2(0.34f, 0.15f));
-            giveUp.onClick.AddListener(ToggleJournal);
-
-            Button back = CreateButton(card.transform, "BtnBackToMap", "返回调查", Card, Paper, 22,
-                new Vector2(0.37f, 0.05f), new Vector2(0.63f, 0.15f));
-            back.onClick.AddListener(BackToInvestigation);
-
-            confirmButton = CreateButton(card.transform, "BtnConfirmSuspect", "确认结论", Gold, Ink, 22,
-                new Vector2(0.66f, 0.05f), new Vector2(0.92f, 0.15f));
-            confirmButton.onClick.AddListener(ConfirmSuspect);
-            return root;
+            ApplyCaseChrome();
+            RefreshInvestigation();
+            ShowPreview();
+            if (ResumeCleanup()) return;
+            if (resumed && session.Clues.Count > 0)
+            {
+                ShowTown();
+                Show(Phase.Investigate, false);
+            }
+            else
+                Show(Phase.Intro, false);
         }
 
-        GameObject BuildResult(Transform parent)
+        public static string SceneNameForCase(int index) => CaseSceneNames[index];
+
+        public void PerformAction(QingxiUiAction.Action action, int index)
         {
-            var root = CreatePanel(parent, "Result", new Color(0f, 0f, 0f, 0f));
-            resultDim = CreateImage(root.transform, "Dim", new Color(0.10f, 0.18f, 0.14f, 0.30f), Vector2.zero, Vector2.one, true);
-            var card = CreateImage(root.transform, "Card", Panel, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), false);
-            card.rectTransform.sizeDelta = new Vector2(880f, 680f);
-
-            resultStrip = CreateImage(card.transform, "Strip", Ok, new Vector2(0f, 0f), new Vector2(0f, 1f), false);
-            resultStrip.rectTransform.offsetMax = new Vector2(8f, 0f);
-
-            resultTitle = CreateText(card.transform, "Title", "通关", 48, Ok, TextAnchor.MiddleLeft,
-                new Vector2(0.08f, 0.84f), new Vector2(0.92f, 0.96f), FontStyle.Bold);
-            resultComment = CreateText(card.transform, "Comment", "", 26, Paper, TextAnchor.UpperLeft,
-                new Vector2(0.1f, 0.66f), new Vector2(0.9f, 0.84f));
-            resultChoice = CreateText(card.transform, "Choice", "", 24, Paper, TextAnchor.MiddleLeft,
-                new Vector2(0.1f, 0.56f), new Vector2(0.9f, 0.66f));
-            resultTruth = CreateText(card.transform, "Truth", "", 24, Gold,
-                TextAnchor.MiddleLeft, new Vector2(0.1f, 0.48f), new Vector2(0.9f, 0.58f));
-
-            CreateText(card.transform, "HintHead", "线索提示", 20, Muted, TextAnchor.LowerLeft,
-                new Vector2(0.1f, 0.40f), new Vector2(0.9f, 0.48f));
-            resultHint = CreateText(card.transform, "Hint", "", 22, Paper, TextAnchor.UpperLeft,
-                new Vector2(0.1f, 0.18f), new Vector2(0.9f, 0.40f));
-
-            Button menu = CreateButton(card.transform, "BtnResultMenu", "返回主菜单", Card, Paper, 24,
-                new Vector2(0.1f, 0.05f), new Vector2(0.46f, 0.15f));
-            menu.onClick.AddListener(AbandonToMenu);
-
-            Button restart = CreateButton(card.transform, "BtnRestart", "重新调查", Gold, Ink, 24,
-                new Vector2(0.54f, 0.05f), new Vector2(0.9f, 0.15f));
-            restartLabel = restart.GetComponentInChildren<Text>();
-            restart.onClick.AddListener(ContinueAfterResult);
-            return root;
+            if (loadingScene || phaseRoutine != null) return;
+            switch (action)
+            {
+                case QingxiUiAction.Action.EnterCase: EnterCase(index); break;
+                case QingxiUiAction.Action.BeginInvestigation: BeginInvestigation(); break;
+                case QingxiUiAction.Action.ReturnToMenu: AbandonToMenu(); break;
+                case QingxiUiAction.Action.OpenDeduction: OpenDeduction(); break;
+                case QingxiUiAction.Action.ToggleJournal: ToggleJournal(); break;
+                case QingxiUiAction.Action.CloseJournal: CloseJournal(); break;
+                case QingxiUiAction.Action.CloseInteract: CloseInteract(); break;
+                case QingxiUiAction.Action.ObserveSurface: OnSurface(); break;
+                case QingxiUiAction.Action.InvestigateDeep: OnDeep(); break;
+                case QingxiUiAction.Action.SelectSuspect: SelectSuspect(index); break;
+                case QingxiUiAction.Action.BackToInvestigation: BackToInvestigation(); break;
+                case QingxiUiAction.Action.ConfirmSuspect: ConfirmSuspect(); break;
+                case QingxiUiAction.Action.ContinueAfterResult: ContinueAfterResult(); break;
+                case QingxiUiAction.Action.CleanupPrimary: cleanupGame.Confirm(); break;
+                case QingxiUiAction.Action.ResetCleanup: cleanupGame.ResetBoard(); break;
+            }
         }
 
         void BeginInvestigation()
@@ -469,7 +200,8 @@ namespace Qingxi
 
         void OpenInteract(int id)
         {
-            if (activePhase != Phase.Investigate || phaseRoutine != null || journalOverlay.activeSelf)
+            if (session == null || id < 0 || id >= session.Case.Areas.Length ||
+                activePhase != Phase.Investigate || phaseRoutine != null || journalOverlay.activeSelf)
                 return;
             selectedArea = id;
             interactDim.SetActive(true);
@@ -526,6 +258,8 @@ namespace Qingxi
 
         void SelectSuspect(int id)
         {
+            if (session == null || activePhase != Phase.Deduce || id < 0 || id >= session.Case.Suspects.Length)
+                return;
             selectedSuspect = id;
             RefreshSuspects();
         }
@@ -535,23 +269,17 @@ namespace Qingxi
             if (!selectedSuspect.HasValue || activePhase != Phase.Deduce || phaseRoutine != null)
                 return;
 
-            InvestigationSave.Clear(caseIndex);
             resultCorrect = session.IsCorrect(selectedSuspect.Value);
-            resultStrip.color = resultCorrect ? Ok : Bad;
-            resultTitle.text = resultCorrect ? "调查完成" : "再核对一次证据";
-            resultTitle.color = resultCorrect ? Ok : Bad;
-            resultComment.text = resultCorrect ? session.Case.SuccessText : session.Case.FailText;
-            resultChoice.text = "你的结论：" + session.Case.Suspects[selectedSuspect.Value].Label;
-            resultTruth.text = "正确答案：" + session.Case.Suspects[session.Case.TruthIndex].Label;
-            resultHint.text = session.Case.ClueHint;
+            cleanupComplete = false;
             if (resultCorrect)
-                MarkCleared(caseIndex);
-            if (!resultCorrect)
-                restartLabel.text = "重新调查";
-            else if (caseIndex < QingxiCases.Count - 1)
-                restartLabel.text = "下一关";
-            else
-                restartLabel.text = "再调查本关";
+            {
+                InvestigationSave.Store(caseIndex, session);
+                CleanupSave.Begin(caseIndex);
+            }
+            else InvestigationSave.Clear(caseIndex);
+            resultStrip.color = resultCorrect ? Ok : Bad;
+            RefreshResultText();
+            resultTitle.color = resultCorrect ? Ok : Bad;
             if (explorer != null)
                 explorer.PresentLandmark();
             if (resultDim != null)
@@ -564,20 +292,37 @@ namespace Qingxi
             Punch(resultTitle.rectTransform);
         }
 
+        /// <summary>Re-renders translated text without changing investigation or UI state.</summary>
+        public void RefreshLanguage()
+        {
+            if (loadingScene) return;
+            if (sceneCaseIndex < 0) { RefreshMenu(); return; }
+            if (session == null) return;
+            ApplyCaseChrome();
+            RefreshInvestigation();
+            if (explorer != null) explorer.RefreshMarks();
+            if (activePhase == Phase.Result && selectedSuspect.HasValue) RefreshResultText();
+            if (cleanupGame != null) cleanupGame.Refresh();
+            if (journalOverlay != null && journalOverlay.activeSelf) RefreshJournalContents();
+        }
+
+        void RefreshResultText()
+        {
+            resultTitle.text = L.Text(resultCorrect ? cleanupComplete ? "治理完成" : "结论正确" : "再核对一次证据");
+            resultComment.text = L.Text(resultCorrect ? cleanupComplete ? "污染源已控制。后续处理将继续，水体恢复需要时间。" :
+                "已锁定污染源。接下来请亲手完成治理，完成后解锁下一关。" : session.Case.FailText);
+            resultChoice.text = L.Format("你的结论：{0}", L.Text(session.Case.Suspects[selectedSuspect.Value].Label));
+            resultTruth.text = L.Format("正确答案：{0}", L.Text(session.Case.Suspects[session.Case.TruthIndex].Label));
+            resultHint.text = L.Text(session.Case.ClueHint);
+            restartLabel.text = L.Text(!resultCorrect ? "重新调查" : !cleanupComplete ? "开始治理" : caseIndex < QingxiCases.Count - 1 ? "下一关" : "再调查本关");
+        }
+
         void ContinueAfterResult()
         {
+            if (resultCorrect && !cleanupComplete) { BeginCleanup(); return; }
             if (resultCorrect && caseIndex < QingxiCases.Count - 1)
                 caseIndex++;
-
-            DestroyTown();
-            session.Bind(QingxiCases.Get(caseIndex));
-            selectedArea = null;
-            selectedSuspect = null;
-            shownPoints = -1;
-            shownClues = -1;
-            ApplyCaseChrome();
-            ShowPreview();
-            Show(Phase.Intro);
+            LoadAuthoredScene(SceneNameForCase(caseIndex));
         }
 
         void EnterCase(int index)
@@ -585,23 +330,7 @@ namespace Qingxi
             if (index < 0 || index >= QingxiCases.Count || index > unlockedThrough)
                 return;
 
-            // Relinquish the poster camera before the town takes ownership.
-            poster.gameObject.SetActive(false);
-            caseIndex = index;
-            bool resumed = InvestigationSave.TryLoad(caseIndex, out InvestigationSession saved);
-            session = resumed ? saved : new InvestigationSession(QingxiCases.Get(caseIndex));
-            selectedArea = null;
-            selectedSuspect = null;
-            resultCorrect = false;
-            shownPoints = -1;
-            shownClues = -1;
-            DestroyTown();
-            ApplyCaseChrome();
-            ShowPreview();
-            if (resumed && session.Clues.Count > 0)
-                BeginInvestigation();
-            else
-                Show(Phase.Intro);
+            LoadAuthoredScene(SceneNameForCase(index));
         }
 
         void ShowPreview()
@@ -614,54 +343,36 @@ namespace Qingxi
         void AbandonToMenu()
         {
             CloseInteract();
-            DestroyTown();
-            selectedArea = null;
-            selectedSuspect = null;
-            RefreshMenu();
-            Show(Phase.Menu);
+            LoadAuthoredScene(MenuSceneName);
+        }
+
+        void LoadAuthoredScene(string sceneName)
+        {
+            if (loadingScene) return;
+            loadingScene = true;
+            StopAllCoroutines();
+            phaseTransitioning = false;
+            phaseRoutine = null;
+            if (explorer != null)
+            {
+                explorer.InputEnabled = false;
+                explorer.MovementLocked = true;
+            }
+            foreach (CanvasGroup group in GetPhaseGroups())
+                group.interactable = false;
+            SceneManager.LoadScene(sceneName);
         }
 
         void ShowTown()
         {
-            if (explorer == null || explorerCase != caseIndex)
-            {
-                DestroyTown();
-                var go = new GameObject("TownExplorer");
-                go.transform.SetParent(transform, false);
-                go.SetActive(false);
-                explorer = go.AddComponent<TownExplorer>();
-                explorer.Build(session, uiFont);
-                explorer.OnOpen = OpenInteract;
-                explorer.OnClose = CloseInteract;
-                explorerCase = caseIndex;
-            }
-
-            explorer.gameObject.SetActive(true);
+            if (explorer == null) return;
             explorer.ResumeExplore();
             CloseInteract();
         }
 
-        void HideTown()
-        {
-            CloseInteract();
-            if (explorer != null)
-                explorer.gameObject.SetActive(false);
-        }
-
-        void DestroyTown()
-        {
-            CloseInteract();
-            if (explorer != null)
-            {
-                explorer.gameObject.SetActive(false);
-                Destroy(explorer.gameObject);
-            }
-            explorer = null;
-            explorerCase = -1;
-        }
-
         void Update()
         {
+            if (loadingScene) return;
             HandleShortcuts();
             if (promptText == null || explorer == null || !explorer.isActiveAndEnabled)
                 return;
@@ -694,6 +405,7 @@ namespace Qingxi
 
         void RefreshMenu()
         {
+            if (levelButtons == null) return;
             for (int i = 0; i < levelButtons.Length; i++)
             {
                 CaseDefinition current = QingxiCases.Get(i);
@@ -704,22 +416,27 @@ namespace Qingxi
                 level.Image.color = Card;
                 if (locked)
                 {
-                    level.Label.text = "第 " + (i + 1) + " 关      " + current.ChapterName + "          未解锁";
+                    level.Label.text = L.Format("第 {0} 关 · {1} · 未解锁", i + 1, L.Text(current.ChapterName));
                     level.Label.color = Muted;
+                }
+                else if (CleanupSave.TryLoad(i, out _))
+                {
+                    level.Label.text = L.Format("第 {0} 关 · {1} · 继续治理", i + 1, L.Text(current.ChapterName));
+                    level.Label.color = Gold;
                 }
                 else if (cleared)
                 {
-                    level.Label.text = "第 " + (i + 1) + " 关      " + current.ChapterName + "          已通关";
+                    level.Label.text = L.Format("第 {0} 关 · {1} · 已通关", i + 1, L.Text(current.ChapterName));
                     level.Label.color = Gold;
                 }
                 else
                 {
-                    level.Label.text = "第 " + (i + 1) + " 关      " + current.ChapterName;
+                    level.Label.text = L.Format("第 {0} 关 · {1}", i + 1, L.Text(current.ChapterName));
                     level.Label.color = Paper;
                 }
                 if (!locked && InvestigationSave.TryLoad(i, out InvestigationSession saved) && saved.Clues.Count > 0)
                 {
-                    level.Label.text = "第 " + (i + 1) + " 关  ·  " + current.ChapterName + "    继续调查";
+                    level.Label.text = L.Format("第 {0} 关 · {1} · 继续调查", i + 1, L.Text(current.ChapterName));
                     level.Image.color = new Color(0.80f, 0.88f, 0.81f);
                 }
             }
@@ -728,15 +445,15 @@ namespace Qingxi
         void ApplyCaseChrome()
         {
             CaseDefinition current = session.Case;
-            introChapter.text = "第 " + (caseIndex + 1) + " 关  ·  " + current.ChapterName;
-            introBody.text = current.IntroBody;
-            headerTitle.text = current.PlaceName;
-            mapCaption.text = current.MapCaption;
-            resultTruth.text = "正确答案：" + current.Suspects[current.TruthIndex].Label;
-            resultHint.text = current.ClueHint;
+            introChapter.text = L.Format("第 {0} 关 · {1}", caseIndex + 1, L.Text(current.ChapterName));
+            introBody.text = L.Text(current.IntroBody);
+            headerTitle.text = L.Text(current.PlaceName);
+            mapCaption.text = L.Text(current.MapCaption);
+            resultTruth.text = L.Format("正确答案：{0}", L.Text(current.Suspects[current.TruthIndex].Label));
+            resultHint.text = L.Text(current.ClueHint);
 
             for (int i = 0; i < choices.Length; i++)
-                choices[i].Label.text = current.Suspects[i].Label;
+                choices[i].Label.text = L.Text(current.Suspects[i].Label);
         }
 
         void RefreshInvestigation()
@@ -751,7 +468,7 @@ namespace Qingxi
             if (shownPoints >= 0 && session.Points < shownPoints)
                 Punch(pointsText.rectTransform);
             shownPoints = session.Points;
-            pointsText.text = "行动点    " + session.Points + " / " + QingxiCases.StartingPoints;
+            pointsText.text = L.Format("行动点    {0} / {1}", session.Points, QingxiCases.StartingPoints);
             pointsText.color = session.Points == 0 ? DeepColor : Gold;
         }
 
@@ -762,34 +479,34 @@ namespace Qingxi
 
             AreaDefinition def = session.Case.Areas[selectedArea.Value];
             AreaProgress progress = session.GetProgress(selectedArea.Value);
-            detailTitle.text = def.Name;
+            detailTitle.text = L.Text(def.Name);
 
-            surfaceLabel.text = progress.SurfaceDone ? "已表面观察" : "表面观察 · 免费";
+            surfaceLabel.text = L.Text(progress.SurfaceDone ? "已表面观察" : "表面观察 · 免费");
             surfaceButton.interactable = !progress.SurfaceDone;
             surfaceBody.text = progress.SurfaceDone
-                ? def.SurfaceClue
-                : "尚未观察。信息偏模糊，可能夹带干扰。";
+                ? L.Text(def.SurfaceClue)
+                : L.Text("尚未观察。信息偏模糊，可能夹带干扰。");
             surfaceBody.color = progress.SurfaceDone ? Paper : Muted;
 
             if (progress.DeepDone)
             {
-                deepLabel.text = "已深入核查";
+                deepLabel.text = L.Text("已深入核查");
                 deepButton.interactable = false;
             }
             else if (session.Points < def.DeepCost)
             {
-                deepLabel.text = "点数不足 · 需" + def.DeepCost + "点";
+                deepLabel.text = L.Format("点数不足 · 需{0}点", def.DeepCost);
                 deepButton.interactable = false;
             }
             else
             {
-                deepLabel.text = "深入核查 · " + def.DeepCost + "点";
+                deepLabel.text = L.Format("深入核查 · {0}点", def.DeepCost);
                 deepButton.interactable = true;
             }
 
             deepBody.text = progress.DeepDone
-                ? def.DeepClue
-                : "尚未核查。关键线索可以直接佐证或排除某个污染源。";
+                ? L.Text(def.DeepClue)
+                : L.Text("尚未核查。关键线索可以直接佐证或排除某个污染源。");
             deepBody.color = progress.DeepDone ? Gold : Muted;
             PlayFade(detailGroup);
         }
@@ -798,13 +515,13 @@ namespace Qingxi
         {
             bool changed = shownClues != session.Clues.Count;
             notesHeader.text = session.Clues.Count == 0
-                ? "线索笔记"
-                : "线索笔记    " + session.Clues.Count;
+                ? L.Text("线索笔记")
+                : L.Format("线索笔记    {0}", session.Clues.Count);
 
             if (session.Clues.Count == 0)
             {
                 notebookText.color = Muted;
-                notebookText.text = "还没有线索。\n先用免费的表面观察判断方向，再把调查点数花在值得深挖的区域。";
+                notebookText.text = L.Text("还没有线索。\n先用免费的表面观察判断方向，再把调查点数花在值得深挖的区域。");
             }
             else
             {
@@ -813,21 +530,25 @@ namespace Qingxi
                 for (int i = 0; i < session.Clues.Count; i++)
                 {
                     ClueRecord clue = session.Clues[i];
-                    string name = session.Case.Areas[clue.Area].Name;
+                    string name = L.Text(session.Case.Areas[clue.Area].Name);
                     if (clue.IsKey)
                     {
-                        sb.Append("<color=#9C4A38>[关键]  ");
+                        sb.Append("<color=#9C4A38>");
+                        sb.Append(L.Text("[关键]"));
+                        sb.Append("  ");
                         sb.Append(name);
-                        sb.Append('：');
-                        sb.Append(clue.Text);
+                        sb.Append(L.Text("："));
+                        sb.Append(L.Text(clue.Text));
                         sb.Append("</color>\n\n");
                     }
                     else
                     {
-                        sb.Append("<color=#1C2824>[普通]  ");
+                        sb.Append("<color=#1C2824>");
+                        sb.Append(L.Text("[普通]"));
+                        sb.Append("  ");
                         sb.Append(name);
-                        sb.Append('：');
-                        sb.Append(clue.Text);
+                        sb.Append(L.Text("："));
+                        sb.Append(L.Text(clue.Text));
                         sb.Append("</color>\n\n");
                     }
                 }
@@ -856,7 +577,7 @@ namespace Qingxi
             confirmButton.interactable = selectedSuspect.HasValue;
         }
 
-        void Show(Phase phase)
+        void Show(Phase phase, bool animate = true)
         {
             CloseJournal();
             activePhase = phase;
@@ -867,11 +588,21 @@ namespace Qingxi
                 explorer.MovementLocked = true;
                 explorer.InputEnabled = false;
             }
-            if (poster != null)
-                poster.gameObject.SetActive(phase == Phase.Menu);
             if (phaseRoutine != null)
                 StopCoroutine(phaseRoutine);
-            phaseRoutine = StartCoroutine(PlayTransition(phase));
+            phaseRoutine = null;
+            phaseTransitioning = false;
+            // The scene already contains its opening panel. Make it usable immediately,
+            // including during slow loading frames; subsequent phase changes still animate.
+            if (!animate)
+            {
+                FinishTransition(phase);
+                return;
+            }
+            phaseTransitioning = true;
+            Coroutine started = StartCoroutine(PlayTransition(phase));
+            // A long frame can finish the tween before StartCoroutine returns.
+            phaseRoutine = phaseTransitioning ? started : null;
         }
 
         void PreparePanels()
@@ -883,9 +614,11 @@ namespace Qingxi
                 investigatePanel,
                 deducePanel,
                 resultPanel,
+                cleanupGame != null ? cleanupGame.gameObject : null,
             };
             for (int i = 0; i < panels.Length; i++)
             {
+                if (panels[i] == null) continue;
                 CanvasGroup group = panels[i].GetComponent<CanvasGroup>();
                 group.alpha = 0f;
                 group.blocksRaycasts = false;
@@ -906,6 +639,8 @@ namespace Qingxi
                     return investigatePanel.GetComponent<CanvasGroup>();
                 case Phase.Deduce:
                     return deducePanel.GetComponent<CanvasGroup>();
+                case Phase.Cleanup:
+                    return cleanupGame.GetComponent<CanvasGroup>();
                 default:
                     return resultPanel.GetComponent<CanvasGroup>();
             }
@@ -921,14 +656,7 @@ namespace Qingxi
             Vector2 offset = new Vector2(0f, -32f);
             toRect.anchoredPosition = offset;
 
-            CanvasGroup[] groups =
-            {
-                menuPanel.GetComponent<CanvasGroup>(),
-                introPanel.GetComponent<CanvasGroup>(),
-                investigatePanel.GetComponent<CanvasGroup>(),
-                deducePanel.GetComponent<CanvasGroup>(),
-                resultPanel.GetComponent<CanvasGroup>(),
-            };
+            CanvasGroup[] groups = GetPhaseGroups();
             float[] start = new float[groups.Length];
             for (int i = 0; i < groups.Length; i++)
             {
@@ -952,19 +680,30 @@ namespace Qingxi
                     groups[i].blocksRaycasts = false;
                 }
 
+                // Do not leave a fully visible panel locked until one more frame.
+                if (t >= duration) break;
                 yield return null;
             }
 
+            FinishTransition(next);
+        }
+
+        void FinishTransition(Phase next)
+        {
+            CanvasGroup to = GroupOf(next);
+            CanvasGroup[] groups = GetPhaseGroups();
             for (int i = 0; i < groups.Length; i++)
             {
                 if (groups[i] == to)
                     continue;
                 groups[i].alpha = 0f;
                 groups[i].blocksRaycasts = false;
+                groups[i].interactable = false;
                 groups[i].gameObject.SetActive(false);
                 groups[i].GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
             }
 
+            to.gameObject.SetActive(true);
             to.alpha = 1f;
             to.blocksRaycasts = true;
             to.interactable = true;
@@ -973,15 +712,28 @@ namespace Qingxi
                 explorer.MovementLocked = next != Phase.Investigate || selectedArea.HasValue;
                 explorer.InputEnabled = next == Phase.Investigate;
             }
-            toRect.anchoredPosition = Vector2.zero;
-            if (poster != null && next != Phase.Menu)
-                poster.gameObject.SetActive(false);
+            to.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+            phaseTransitioning = false;
             phaseRoutine = null;
+        }
+
+        CanvasGroup[] GetPhaseGroups()
+        {
+            if (sceneCaseIndex < 0)
+                return new[] { menuPanel.GetComponent<CanvasGroup>() };
+            return new[]
+            {
+                introPanel.GetComponent<CanvasGroup>(),
+                investigatePanel.GetComponent<CanvasGroup>(),
+                deducePanel.GetComponent<CanvasGroup>(),
+                resultPanel.GetComponent<CanvasGroup>(),
+                cleanupGame.GetComponent<CanvasGroup>()
+            };
         }
 
         void PlayFade(CanvasGroup group)
         {
-            if (group == null)
+            if (!Application.isPlaying || group == null)
                 return;
             if (detailRoutine != null && group == detailGroup)
                 StopCoroutine(detailRoutine);
@@ -1007,7 +759,7 @@ namespace Qingxi
 
         void Punch(RectTransform target)
         {
-            if (target == null)
+            if (!Application.isPlaying || target == null)
                 return;
             StartCoroutine(PunchScale(target));
         }
@@ -1102,204 +854,5 @@ namespace Qingxi
             }
         }
 
-        static void StyleButton(Button button)
-        {
-            ColorBlock colors = button.colors;
-            colors.normalColor = Color.white;
-            colors.highlightedColor = new Color(1.12f, 1.12f, 1.12f, 1f);
-            colors.pressedColor = new Color(0.82f, 0.82f, 0.82f, 1f);
-            colors.selectedColor = Color.white;
-            colors.disabledColor = new Color(0.78f, 0.80f, 0.78f, 0.95f);
-            colors.fadeDuration = 0.14f;
-            colors.colorMultiplier = 1f;
-            button.colors = colors;
-
-            Navigation nav = button.navigation;
-            nav.mode = Navigation.Mode.None;
-            button.navigation = nav;
-        }
-
-        Button CreateButton(
-            Transform parent,
-            string name,
-            string label,
-            Color baseColor,
-            Color labelColor,
-            int fontSize,
-            Vector2 anchorMin,
-            Vector2 anchorMax)
-        {
-            Image image = CreateImage(parent, name, baseColor, anchorMin, anchorMax, true);
-            var button = image.gameObject.AddComponent<Button>();
-            button.targetGraphic = image;
-            StyleButton(button);
-            image.gameObject.AddComponent<UiPress>();
-            Text text = CreateText(image.transform, "Label", label, fontSize, labelColor, TextAnchor.MiddleCenter,
-                Vector2.zero, Vector2.one);
-            text.rectTransform.offsetMin = new Vector2(12f, 4f);
-            text.rectTransform.offsetMax = new Vector2(-12f, -4f);
-            return button;
-        }
-
-        GameObject CreatePanel(Transform parent, string name, Color color)
-        {
-            Image image = CreateImage(parent, name, color, Vector2.zero, Vector2.one, false);
-            var group = image.gameObject.AddComponent<CanvasGroup>();
-            group.alpha = 0f;
-            group.blocksRaycasts = false;
-            return image.gameObject;
-        }
-
-        static RectTransform CreateRect(Transform parent, string name, Vector2 anchorMin, Vector2 anchorMax)
-        {
-            var go = new GameObject(name, typeof(RectTransform));
-            var rt = go.GetComponent<RectTransform>();
-            rt.SetParent(parent, false);
-            rt.anchorMin = anchorMin;
-            rt.anchorMax = anchorMax;
-            rt.offsetMin = Vector2.zero;
-            rt.offsetMax = Vector2.zero;
-            rt.localScale = Vector3.one;
-            return rt;
-        }
-
-        static Image CreateImage(
-            Transform parent,
-            string name,
-            Color color,
-            Vector2 anchorMin,
-            Vector2 anchorMax,
-            bool raycast)
-        {
-            RectTransform rt = CreateRect(parent, name, anchorMin, anchorMax);
-            var image = rt.gameObject.AddComponent<Image>();
-            image.sprite = WhiteSprite();
-            image.type = Image.Type.Simple;
-            image.color = color;
-            image.raycastTarget = raycast;
-            return image;
-        }
-
-        Text CreateText(
-            Transform parent,
-            string name,
-            string content,
-            int size,
-            Color color,
-            TextAnchor anchor,
-            Vector2 anchorMin,
-            Vector2 anchorMax,
-            FontStyle style = FontStyle.Normal,
-            VerticalWrapMode vertical = VerticalWrapMode.Truncate)
-        {
-            RectTransform rt = CreateRect(parent, name, anchorMin, anchorMax);
-            var text = rt.gameObject.AddComponent<Text>();
-            text.font = uiFont;
-            text.fontStyle = style;
-            text.text = content;
-            text.fontSize = size;
-            text.color = color;
-            text.alignment = anchor;
-            text.alignByGeometry = false;
-            text.horizontalOverflow = HorizontalWrapMode.Wrap;
-            text.verticalOverflow = vertical;
-            text.lineSpacing = 1.16f;
-            text.supportRichText = true;
-            text.raycastTarget = false;
-            return text;
-        }
-
-        static Sprite WhiteSprite()
-        {
-            if (whiteSprite != null)
-                return whiteSprite;
-
-            var tex = new Texture2D(1, 1, TextureFormat.RGBA32, false);
-            tex.SetPixel(0, 0, Color.white);
-            tex.Apply();
-            tex.hideFlags = HideFlags.HideAndDontSave;
-            whiteSprite = Sprite.Create(tex, new Rect(0f, 0f, 1f, 1f), new Vector2(0.5f, 0.5f), 1f);
-            whiteSprite.hideFlags = HideFlags.HideAndDontSave;
-            return whiteSprite;
-        }
-    }
-
-    sealed class UiPress : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
-    {
-        RectTransform rect;
-        float rest = 1f;
-        float target = 1f;
-        float current = 1f;
-        float velocity;
-        bool over;
-        bool down;
-
-        void Awake()
-        {
-            rect = (RectTransform)transform;
-        }
-
-        void Update()
-        {
-            ApplyTarget();
-            current = Mathf.SmoothDamp(current, target, ref velocity, 0.07f, Mathf.Infinity, Time.unscaledDeltaTime);
-            rect.localScale = new Vector3(current, current, 1f);
-        }
-
-        public void SetRest(float scale)
-        {
-            rest = scale;
-            ApplyTarget();
-        }
-
-        void OnDisable()
-        {
-            over = down = false;
-            velocity = 0f;
-            target = current = rest;
-            if (rect != null) rect.localScale = Vector3.one * rest;
-        }
-
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            over = true;
-            ApplyTarget();
-        }
-
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            over = false;
-            down = false;
-            ApplyTarget();
-        }
-
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            down = true;
-            ApplyTarget();
-        }
-
-        public void OnPointerUp(PointerEventData eventData)
-        {
-            down = false;
-            ApplyTarget();
-        }
-
-        void ApplyTarget()
-        {
-            Button button = GetComponent<Button>();
-            if (button != null && !button.IsInteractable())
-            {
-                target = rest;
-                return;
-            }
-
-            if (down)
-                target = rest * 0.96f;
-            else if (over)
-                target = rest * 1.035f;
-            else
-                target = rest;
-        }
     }
 }
